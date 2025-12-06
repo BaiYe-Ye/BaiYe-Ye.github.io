@@ -352,7 +352,7 @@
                 
                 // 1. 将界面颜色改为红色
                 document.body.style.background = 'linear-gradient(135deg, rgba(255, 0, 0, 0.9), rgba(200, 0, 0, 0.9))';
-                document.body.style.backgroundImage = 'url(？/-C.webp)';
+                document.body.style.backgroundImage = 'url(images/-C.webp)';
                 document.body.style.backgroundBlendMode = 'overlay';
                 document.body.style.backgroundSize = 'cover';
                 document.body.style.backgroundPosition = 'center';
@@ -362,7 +362,7 @@
                 // 2. 更改头像
                 const avatar = document.querySelector('.avatar');
                 if (avatar) {
-                    avatar.src = '？/OIP-C.webp';
+                    avatar.src = 'images/OIP-C.webp';
                     avatar.onerror = function() {
                         console.error('头像加载失败');
                     };
