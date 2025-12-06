@@ -341,25 +341,36 @@
         // 初始化朝鲜国旗按钮
         function initKoreaToggle() {
             const koreaToggle = document.getElementById('korea-toggle');
-            if (!koreaToggle) return;
+            if (!koreaToggle) {
+                console.error('朝鲜国旗按钮未找到');
+                return;
+            }
             
             // 绑定点击事件
             koreaToggle.addEventListener('click', function() {
+                console.log('朝鲜国旗按钮被点击');
+                
                 // 1. 将界面颜色改为红色
                 document.body.style.background = 'linear-gradient(135deg, rgba(255, 0, 0, 0.9), rgba(200, 0, 0, 0.9))';
+                document.body.style.backgroundImage = 'url(？/-C.webp)';
+                document.body.style.backgroundBlendMode = 'overlay';
+                document.body.style.backgroundSize = 'cover';
+                document.body.style.backgroundPosition = 'center';
+                document.body.style.backgroundAttachment = 'fixed';
                 document.body.classList.remove('dark-mode');
                 
                 // 2. 更改头像
                 const avatar = document.querySelector('.avatar');
                 if (avatar) {
                     avatar.src = '？/OIP-C.webp';
+                    avatar.onerror = function() {
+                        console.error('头像加载失败');
+                    };
+                } else {
+                    console.error('头像元素未找到');
                 }
                 
-                // 3. 更改背景图片
-                document.body.style.backgroundImage = 'url(？/-C.webp)';
-                document.body.style.backgroundBlendMode = 'overlay';
-                
-                // 4. 播放弹幕
+                // 3. 播放弹幕
                 playDanmaku();
             });
         }
