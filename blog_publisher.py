@@ -190,16 +190,17 @@ class BlogPublisher:
         # 生成文章ID（使用标题的小写+连字符）
         article_id = re.sub(r'\s+', '-', title.lower())
         article_id = re.sub(r'[^a-z0-9\-]', '', article_id)
+        article_id = f"post-{article_id}"
         
         # 生成文章摘要（前200个字符）
         excerpt = re.sub(r'<[^>]+>', '', content)[:200]
         excerpt = re.sub(r'\s+', ' ', excerpt).strip()
         
-        # 生成HTML代码
+        # 生成HTML代码 - 包含文章阅读功能
         html = f'''                <!-- 文章 -->
-                <article class="post">
+                <article class="post" data-post-id="{article_id}">
                     <div class="post-header">
-                        <h2 class="post-title"><a href="#{article_id}">{title}</a></h2>
+                        <h2 class="post-title"><a href="#{article_id}" onclick="togglePostContent('{article_id}'); return false;">{title}</a></h2>
                         <div class="post-meta">
                             <span class="post-date">{date}</span>
                             <span class="post-category">{category}</span>
@@ -208,8 +209,11 @@ class BlogPublisher:
                     <div class="post-excerpt">
                         <p>{excerpt}...</p>
                     </div>
+                    <div class="post-content" style="display: none;">
+                        <p>{content}</p>
+                    </div>
                     <div class="post-footer">
-                        <a href="#{article_id}" class="read-more">阅读更多</a>
+                        <a href="#{article_id}" class="read-more" onclick="togglePostContent('{article_id}'); return false;">阅读更多</a>
                     </div>
                 </article>'''
         return html

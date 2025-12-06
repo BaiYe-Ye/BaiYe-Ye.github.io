@@ -10,117 +10,431 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: #333;
-    background-color: #f5f5f5;
-}
-
-/* 容器 */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* 头部样式 */
-.header {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 60px 0;
-    text-align: center;
+    min-height: 100vh;
+    padding: 20px;
+    transition: all 0.3s ease;
 }
 
-.logo {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    font-weight: 700;
+/* 深色模式基础样式 */
+body.dark-mode {
+    color: #e0e0e0;
+    background: linear-gradient(135deg, #1e1e2e 0%, #312e81 100%);
 }
 
-.subtitle {
-    font-size: 1.1rem;
-    opacity: 0.9;
+/* 玻璃拟态基础样式 */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
-/* 导航栏样式 */
-.navbar {
-    background-color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+/* 深色模式玻璃拟态 */
+.dark-mode .glass-effect {
+    background: rgba(30, 30, 40, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
-.nav-list {
-    list-style: none;
+/* 快捷访问导航容器 */
+.quick-nav-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 8px 15px;
+    transition: all 0.3s ease;
+}
+
+/* 深色模式下的快捷访问导航 */
+.dark-mode .quick-nav-container {
+    background: rgba(30, 30, 40, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 快捷访问导航 */
+.quick-nav {
     display: flex;
+    gap: 20px;
+}
+
+/* 快捷访问链接 */
+.quick-nav-link {
+    color: #333;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* 深色模式下的快捷访问链接 */
+.dark-mode .quick-nav-link {
+    color: #e0e0e0;
+}
+
+/* 快捷访问链接悬停效果 */
+.quick-nav-link:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 深色模式下的快捷访问链接悬停效果 */
+.dark-mode .quick-nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 深色模式切换按钮容器 */
+.theme-toggle-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+/* 深色模式切换按钮 */
+.theme-toggle-btn {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
     justify-content: center;
     padding: 0;
 }
 
-.nav-item {
-    margin: 0 15px;
+/* 深色模式切换按钮悬停效果 */
+.theme-toggle-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-.nav-link {
-    display: block;
-    padding: 15px 0;
-    color: #555;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-    position: relative;
+/* 深色模式下的切换按钮 */
+.dark-mode .theme-toggle-btn {
+    background: rgba(30, 30, 40, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-.nav-link:hover, .nav-link.active {
-    color: #667eea;
+/* 切换按钮图标 */
+.toggle-icon {
+    transition: transform 0.3s ease;
 }
 
-.nav-link.active::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background-color: #667eea;
+/* 深色模式下的图标变换 */
+.dark-mode .toggle-icon {
+    transform: rotate(180deg);
+    content: '☀️';
 }
 
-/* 主内容区域 */
-.main {
-    padding: 40px 0;
-}
-
-.container {
+/* 主容器 */
+.main-container {
     display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: 40px;
-}
-
-/* 文章列表 */
-.posts {
-    display: flex;
-    flex-direction: column;
+    grid-template-columns: 300px 1fr;
     gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: calc(100vh - 100px);
 }
 
-.post {
-    background-color: white;
-    border-radius: 8px;
+/* 左侧个人信息卡片 */
+.profile-card {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
     padding: 30px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    height: fit-content;
+    animation: fadeIn 0.8s ease;
+    transition: all 0.3s ease;
 }
 
-.post:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+/* 深色模式个人信息卡片 */
+.dark-mode .profile-card {
+    background: rgba(30, 30, 40, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
-.post-header {
+/* 个人信息卡片悬停效果 */
+.profile-card:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+}
+
+/* 头像样式 */
+.avatar-container {
     margin-bottom: 20px;
 }
 
-.post-title {
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 4px solid #667eea;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    object-fit: cover;
+}
+
+.avatar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* 姓名和头衔 */
+.name {
     font-size: 1.8rem;
-    margin-bottom: 10px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.title {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* GitHub按钮 */
+.github-btn {
+    display: inline-block;
+    background-color: #667eea;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-bottom: 25px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.github-btn:hover {
+    background-color: #5a6fd8;
+    transform: translateY(-2px);
+}
+
+/* 统计信息 */
+.stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 25px;
+    padding: 15px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #667eea;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* 技术栈 */
+.tech-stack {
+    margin-top: 20px;
+}
+
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: left;
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-start;
+}
+
+.tech-tag {
+    background-color: #f0f4ff;
+    color: #667eea;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.tech-tag:hover {
+    background-color: #e0e8ff;
+}
+
+/* 右侧内容区域 */
+.content-area {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* 卡片样式 */
+.intro-card, .blog-card {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+/* 深色模式卡片 */
+.dark-mode .intro-card, .dark-mode .blog-card {
+    background: rgba(30, 30, 40, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* 卡片悬停效果 */
+.intro-card:hover, .blog-card:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+}
+
+/* 卡片头部 */
+.card-header {
+    padding: 25px 30px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.card-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-title::before {
+    content: '';
+    width: 4px;
+    height: 24px;
+    background-color: #667eea;
+    border-radius: 2px;
+}
+
+/* 卡片内容 */
+.card-content {
+    padding: 25px 30px 30px;
+}
+
+/* 个人介绍 */
+.intro-text {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: #333;
+    line-height: 1.7;
+}
+
+.intro-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.intro-list li {
+    margin-bottom: 12px;
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* 博客文章 */
+.blog-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.blog-post-item {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 深色模式博客文章 */
+.dark-mode .blog-post-item {
+    background: rgba(40, 40, 40, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 博客文章悬停效果 */
+.blog-post-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    border-left-color: #667eea;
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* 深色模式博客文章悬停 */
+.dark-mode .blog-post-item:hover {
+    background: rgba(50, 50, 50, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.post-info {
+    margin-bottom: 15px;
+}
+
+.post-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+    line-height: 1.4;
 }
 
 .post-title a {
@@ -134,42 +448,55 @@ body {
 }
 
 .post-meta {
-    display: flex;
-    gap: 20px;
-    font-size: 0.9rem;
-    color: #777;
-}
-
-.post-date {
-    display: flex;
-    align-items: center;
-}
-
-.post-category {
-    background-color: #667eea;
-    color: white;
-    padding: 3px 10px;
-    border-radius: 15px;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 12px;
 }
 
 .post-excerpt {
-    margin-bottom: 20px;
     color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
 }
 
-.post-footer {
-    text-align: right;
+.post-content {
+    color: #444;
+    line-height: 1.7;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
 }
 
+.post-content h5 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 15px 0 10px;
+    color: #333;
+}
+
+.post-content p {
+    margin-bottom: 12px;
+}
+
+.post-content ul, .post-content ol {
+    margin: 0 0 15px 25px;
+    padding: 0;
+}
+
+.post-content li {
+    margin-bottom: 8px;
+}
+
+/* 阅读更多链接 */
 .read-more {
     display: inline-block;
-    padding: 8px 20px;
     background-color: #667eea;
     color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
     text-decoration: none;
-    border-radius: 25px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 500;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
@@ -178,331 +505,282 @@ body {
     transform: translateY(-2px);
 }
 
-/* 侧边栏 */
-.sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+/* GitHub仓库卡片样式 */
+.github-repos-card {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
 }
 
-.widget {
-    background-color: white;
-    border-radius: 8px;
-    padding: 25px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+/* 深色模式GitHub仓库卡片 */
+.dark-mode .github-repos-card {
+    background: rgba(30, 30, 40, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
-.widget-title {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    color: #333;
+/* GitHub仓库卡片悬停效果 */
+.github-repos-card:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+}
+
+/* 活动图表卡片样式 */
+.activity-chart-card {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+/* 深色模式活动图表卡片 */
+.dark-mode .activity-chart-card {
+    background: rgba(30, 30, 40, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* 活动图表卡片悬停效果 */
+.activity-chart-card:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+}
+
+/* 图表容器 */
+.chart-container {
     position: relative;
-    padding-bottom: 10px;
+    height: 300px;
+    margin: 0 auto;
+    max-width: 100%;
+    padding: 10px;
 }
 
-.widget-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 50px;
-    height: 3px;
-    background-color: #667eea;
+/* GitHub仓库列表 */
+.github-repos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
 }
 
-.widget-content p {
-    color: #555;
-    line-height: 1.7;
+/* 单个GitHub仓库项 */
+.github-repo-item {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
 }
 
-/* 头像样式 */
-.avatar-container {
-    text-align: center;
-    margin-bottom: 20px;
+/* 深色模式GitHub仓库项 */
+.dark-mode .github-repo-item {
+    background: rgba(40, 40, 40, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 4px solid #667eea;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* GitHub仓库项悬停效果 */
+.github-repo-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.4);
 }
 
-.avatar:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+/* 深色模式GitHub仓库项悬停 */
+.dark-mode .github-repo-item:hover {
+    background: rgba(50, 50, 50, 0.4);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
-/* 分类列表 */
-.category-list, .archive-list, .csdn-articles-list {
-    list-style: none;
-}
-
-.category-list li, .archive-list li, .csdn-articles-list li {
-    margin-bottom: 15px;
-}
-
-.category-list a, .archive-list a, .csdn-articles-list a {
-    color: #555;
-    text-decoration: none;
-    transition: color 0.3s ease;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.category-list a:hover, .archive-list a:hover, .csdn-articles-list a:hover {
+/* GitHub仓库名称 */
+.repo-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
     color: #667eea;
 }
 
-/* 标签页样式 */
-.tab-pane {
-    display: none;
+/* 深色模式仓库名称 */
+.dark-mode .repo-name {
+    color: #8892b0;
 }
 
-.tab-pane.active {
-    display: block;
-}
-
-/* 一言样式 */
-.hitokoto-widget {
-    background-color: #f0f4ff;
-    border-left: 4px solid #667eea;
-    padding: 20px;
-    margin-bottom: 30px;
-    border-radius: 0 8px 8px 0;
-}
-
-.hitokoto-content p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: #333;
-    margin-bottom: 10px;
-    font-style: italic;
-}
-
-.hitokoto-content small {
-    color: #666;
-    display: block;
-    text-align: right;
-}
-
-/* 关于页面样式 */
-.about-content {
-    background-color: white;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-}
-
-.avatar-container.large {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.avatar-container.large .avatar {
-    width: 180px;
-    height: 180px;
-}
-
-.about-content h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: #333;
-    text-align: center;
-}
-
-.about-content h3 {
-    font-size: 1.5rem;
-    margin: 30px 0 15px;
-    color: #333;
-}
-
-.about-content p {
-    margin-bottom: 20px;
-    line-height: 1.8;
+/* GitHub仓库描述 */
+.repo-description {
+    font-size: 0.9rem;
     color: #555;
-}
-
-.contact-list {
-    list-style: none;
-    padding: 0;
-}
-
-.contact-list li {
-    margin-bottom: 15px;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-    color: #555;
-}
-
-/* 联系表单样式 */
-.contact-form {
-    background-color: white;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-}
-
-.contact-form h2 {
-    font-size: 2rem;
-    margin-bottom: 30px;
-    color: #333;
-    text-align: center;
-}
-
-.form-group {
-    margin-bottom: 25px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: #333;
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
-}
-
-.form-group textarea {
-    resize: vertical;
-    min-height: 150px;
-}
-
-.submit-btn {
-    background-color: #667eea;
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: block;
-    margin: 0 auto;
-}
-
-.submit-btn:hover {
-    background-color: #5a6fd8;
-}
-
-/* CSDN文章列表样式 */
-.csdn-articles-list a {
-    justify-content: flex-start;
-    flex-wrap: wrap;
+    margin-bottom: 12px;
     line-height: 1.5;
 }
 
-.csdn-articles-list li {
-    margin-bottom: 10px;
+/* 深色模式仓库描述 */
+.dark-mode .repo-description {
+    color: #aaa;
+}
+
+/* GitHub仓库元数据 */
+.repo-meta {
+    display: flex;
+    gap: 15px;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+/* 深色模式仓库元数据 */
+.dark-mode .repo-meta {
+    color: #bbb;
+}
+
+/* 仓库语言颜色 */
+.repo-language {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.language-color {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* 加载状态 */
+.loading {
+    text-align: center;
+    color: #666;
+    padding: 20px;
+    font-style: italic;
+}
+
+/* 深色模式加载状态 */
+.dark-mode .loading {
+    color: #aaa;
 }
 
 /* 页脚 */
 .footer {
-    background-color: #333;
-    color: white;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    padding: 20px 0;
     text-align: center;
-    padding: 30px 0;
     margin-top: 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    transition: all 0.3s ease;
+}
+
+/* 深色模式页脚 */
+.dark-mode .footer {
+    background: rgba(30, 30, 40, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .footer p {
-    opacity: 0.8;
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* 动画 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* 响应式设计 */
 @media (max-width: 992px) {
-    .container {
+    .main-container {
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 25px;
     }
     
-    .nav-list {
-        flex-wrap: wrap;
-        justify-content: center;
+    .profile-card {
+        width: 100%;
     }
     
-    .nav-item {
-        margin: 0 10px;
-    }
-    
-    .post-title {
-        font-size: 1.5rem;
+    .content-area {
+        width: 100%;
     }
 }
 
 @media (max-width: 768px) {
-    .header {
-        padding: 40px 0;
+    body {
+        padding: 15px;
     }
     
-    .logo {
-        font-size: 2rem;
+    .profile-card {
+        padding: 25px;
     }
     
-    .main {
-        padding: 20px 0;
+    .avatar {
+        width: 120px;
+        height: 120px;
     }
     
-    .post {
-        padding: 20px;
+    .name {
+        font-size: 1.5rem;
     }
     
-    .widget {
-        padding: 20px;
+    .card-header {
+        padding: 20px 25px 0;
     }
     
-    .nav-link {
-        padding: 12px 0;
-        font-size: 0.9rem;
+    .card-content {
+        padding: 20px 25px 25px;
+    }
+    
+    .blog-post-item {
+        padding: 15px;
     }
 }
 
 @media (max-width: 480px) {
-    .container {
-        padding: 0 15px;
-    }
-    
-    .logo {
-        font-size: 1.8rem;
-    }
-    
-    .subtitle {
-        font-size: 1rem;
-    }
-    
-    .nav-item {
-        margin: 0 8px;
-    }
-    
-    .post-title {
-        font-size: 1.3rem;
-    }
-    
-    .post-meta {
+    .stats {
         flex-direction: column;
-        gap: 5px;
+        gap: 15px;
     }
     
-    .read-more {
-        padding: 6px 15px;
-        font-size: 0.8rem;
+    .stat-item {
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
     }
-}
+    
+    .stat-item:last-child {
+        border-bottom: none;
+    }
+    
+    .tech-tags {
+        justify-content: center;
+    }
+    
+    .blog-posts {
+        gap: 15px;
+   
