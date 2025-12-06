@@ -10,7 +10,11 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: #333;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8)), url('backpicture/wallhaven-rrdom7.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     min-height: 100vh;
     padding: 20px;
     transition: all 0.3s ease;
@@ -19,7 +23,11 @@ body {
 /* 深色模式基础样式 */
 body.dark-mode {
     color: #e0e0e0;
-    background: linear-gradient(135deg, #1e1e2e 0%, #312e81 100%);
+    background: linear-gradient(135deg, rgba(30, 30, 46, 0.9), rgba(49, 46, 129, 0.9)), url('backpicture/wallhaven-rrdom7.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
 /* 玻璃拟态基础样式 */
