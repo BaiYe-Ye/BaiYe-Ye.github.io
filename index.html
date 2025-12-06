@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人博客</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 头部区域 -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">我的博客</h1>
+            <p class="subtitle">分享技术与生活</p>
+        </div>
+    </header>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="#" class="nav-link active" data-tab="home">首页</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" data-tab="tech">技术</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" data-tab="life">生活</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" data-tab="about">关于</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" data-tab="contact">联系</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main class="main">
+        <div class="container">
+            <!-- 标签页内容 -->
+            <section class="tab-content">
+                <!-- 首页标签页 -->
+                <div id="home" class="tab-pane active">
+                    <!-- 随机一言 -->
+                    <div class="hitokoto-widget">
+                        <div class="hitokoto-content">
+                            <p id="hitokoto-text">加载中...</p>
+                            <small id="hitokoto-author"></small>
+                        </div>
+                    </div>
+                    
+                    <!-- 博客文章列表 -->
+                    <section class="posts">
+                        <!-- 文章1 -->
+                        <article class="post">
+                            <div class="post-header">
+                                <h2 class="post-title"><a href="#">JavaScript基础入门</a></h2>
+                                <div class="post-meta">
+                                    <span class="post-date">2024-01-15</span>
+                                    <span class="post-category">技术</span>
+                                </div>
+                            </div>
+                            <div class="post-excerpt">
+                                <p>JavaScript是一门广泛应用于网页开发的脚本语言，本文将介绍JavaScript的基础知识，包括变量、数据类型、函数等内容...</p>
+                            </div>
+                            <div class="post-footer">
+                                <a href="#" class="read-more">阅读更多</a>
+                            </div>
+                        </article>
+
+                        <!-- 文章2 -->
+                        <article class="post">
+                            <div class="post-header">
+                                <h2 class="post-title"><a href="#">CSS Flexbox布局详解</a></h2>
+                                <div class="post-meta">
+                                    <span class="post-date">2024-01-10</span>
+                                    <span class="post-category">技术</span>
+                                </div>
+                            </div>
+                            <div class="post-excerpt">
+                                <p>Flexbox是CSS3中引入的一种强大的布局方式，它可以轻松实现各种复杂的布局效果。本文将详细介绍Flexbox的各种属性和用法...</p>
+                            </div>
+                            <div class="post-footer">
+                                <a href="#" class="read-more">阅读更多</a>
+                            </div>
+                        </article>
+
+                        <!-- 文章3 -->
+                        <article class="post">
+                            <div class="post-header">
+                                <h2 class="post-title"><a href="#">我的2024年计划</a></h2>
+                                <div class="post-meta">
+                                    <span class="post-date">2024-01-01</span>
+                                    <span class="post-category">生活</span>
+                                </div>
+                            </div>
+                            <div class="post-excerpt">
+                                <p>新的一年，新的开始。在这篇文章中，我将分享我的2024年计划，包括学习目标、工作目标和生活目标...</p>
+                            </div>
+                            <div class="post-footer">
+                                <a href="#" class="read-more">阅读更多</a>
+                            </div>
+                        </article>
+
+                        <!-- 文章4 -->
+                        <article class="post">
+                            <div class="post-header">
+                                <h2 class="post-title"><a href="#">React组件化开发</a></h2>
+                                <div class="post-meta">
+                                    <span class="post-date">2023-12-25</span>
+                                    <span class="post-category">技术</span>
+                                </div>
+                            </div>
+                            <div class="post-excerpt">
+                                <p>React是目前最流行的前端框架之一，它的组件化开发思想极大地提高了开发效率。本文将介绍React组件化开发的基本概念和实践...</p>
+                            </div>
+                            <div class="post-footer">
+                                <a href="#" class="read-more">阅读更多</a>
+                            </div>
+                        </article>
+                    </section>
+                </div>
+
+                <!-- 技术标签页 -->
+                <div id="tech" class="tab-pane">
+                    <section class="posts">
+                        <!-- 技术文章1 -->
+                        <article class="post">
+                            <div class="post-header">
+                                <h2 class="post-title"><a href="#">JavaScript基础入门</a></h2>
+                                <div class="post-meta">
+                                    <span class="post-date">2024-01-15</span>
+                                    <span class="post-category">技术</span>
+                                </div>
+                            </div>
+                            <div class="post-excerpt">
+                                <p>JavaScript是一门广泛应用于网页开发的脚本语言，本文将介绍JavaScript的基础知识，包括变量、数据类型、函数等内容...</p>
+                            </div>
+                            <div class="post-footer">
+                                <a href="#" class="read-more">阅读更多</a>
+                            </div>
+                        </article>
+
+                        <!-- 技术文章2 -->
+                        <article class="post">
+                            <div class="post-header">
+                                <h2 class="post-title"><a href="#">CSS Flexbox布局详解</a></h2>
+                                <div class="post-meta">
+                                    <span class="post-date">2024-01-10</span>
+                                    <span class="post-category">技术</span>
+                                </div>
+                            </div>
+                            <div class="post-excerpt">
+                                <p>Flexbox是CSS3中引入的一种强大的布局方式，它可以轻松实现各种复杂的布局效果。本文将详细介绍Flexbox的各种属性和用法...</p>
+                            </div>
+                            <div class="post-footer">
+                                <a href="#" class="read-more">阅读更多</a>
+                            </div>
+                        </article>
+
+                        <!-- 技术文章3 -->
+                        <article class="post">
+                            <div class="post-header">
+                                <h2 class="post-title"><a href="#">React组件化开发</a></h2>
+                                <div class="post-meta">
+                                    <span class="post-date">2023-12-25</span>
+                                    <span class="post-category">技术</span>
+                                </div>
+                            </div>
+                            <div class="post-excerpt">
+                                <p>React是目前最流行的前端框架之一，它的组件化开发思想极大地提高了开发效率。本文将介绍React组件化开发的基本概念和实践...</p>
+                            </div>
+                            <div class="post-footer">
+                                <a href="#" class="read-more">阅读更多</a>
+                            </div>
+                        </article>
+                    </section>
+                </div>
+
+                <!-- 生活标签页 -->
+                <div id="life" class="tab-pane">
+                    <section class="posts">
+                        <!-- 生活文章1 -->
+                        <article class="post">
+                            <div class="post-header">
+                                <h2 class="post-title"><a href="#">我的2024年计划</a></h2>
+                                <div class="post-meta">
+                                    <span class="post-date">2024-01-01</span>
+                                    <span class="post-category">生活</span>
+                                </div>
+                            </div>
+                            <div class="post-excerpt">
+                                <p>新的一年，新的开始。在这篇文章中，我将分享我的2024年计划，包括学习目标、工作目标和生活目标...</p>
+                            </div>
+                            <div class="post-footer">
+                                <a href="#" class="read-more">阅读更多</a>
+                            </div>
+                        </article>
+
+                        <!-- 生活文章2 -->
+                        <article class="post">
+                            <div class="post-header">
+                                <h2 class="post-title"><a href="#">程序员的周末生活</a></h2>
+                                <div class="post-meta">
+                                    <span class="post-date">2023-12-20</span>
+                                    <span class="post-category">生活</span>
+                                </div>
+                            </div>
+                            <div class="post-excerpt">
+                                <p>作为一名程序员，周末应该如何度过？是继续加班写代码，还是放松身心享受生活？本文将分享我的周末生活方式...</p>
+                            </div>
+                            <div class="post-footer">
+                                <a href="#" class="read-more">阅读更多</a>
+                            </div>
+                        </article>
+                    </section>
+                </div>
+
+                <!-- 关于标签页 -->
+                <div id="about" class="tab-pane">
+                    <div class="about-content">
+                        <div class="avatar-container large">
+                            <img src="http://q1.qlogo.cn/g?b=qq&nk=3145621688&s=200" alt="QQ头像" class="avatar">
+                        </div>
+                        <h2>关于我</h2>
+                        <p>我是一名热爱技术的开发者，专注于前端开发和用户体验设计。拥有多年的Web开发经验，熟悉HTML、CSS、JavaScript等前端技术栈，以及React、Vue等流行框架。</p>
+                        <p>我喜欢分享技术知识，记录学习心得，希望通过博客与更多的开发者交流和学习。</p>
+                        <h3>联系方式</h3>
+                        <ul class="contact-list">
+                            <li>QQ: 3145621688</li>
+                            <li>邮箱: example@example.com</li>
+                            <li>GitHub: github.com/example</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 联系标签页 -->
+                <div id="contact" class="tab-pane">
+                    <div class="contact-form">
+                        <h2>联系我</h2>
+                        <form>
+                            <div class="form-group">
+                                <label for="name">姓名</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">邮箱</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">留言</label>
+                                <textarea id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">发送留言</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 侧边栏 -->
+            <aside class="sidebar">
+                <!-- 关于我 -->
+                <div class="widget">
+                    <h3 class="widget-title">关于我</h3>
+                    <div class="widget-content">
+                        <div class="avatar-container">
+                            <img src="http://q1.qlogo.cn/g?b=qq&nk=3145621688&s=100" alt="QQ头像" class="avatar">
+                        </div>
+                        <p>我是一名热爱技术的开发者，专注于前端开发和用户体验设计。欢迎来到我的博客！</p>
+                    </div>
+                </div>
+
+                <!-- 随机一言 -->
+                <div class="widget">
+                    <h3 class="widget-title">随机一言</h3>
+                    <div class="widget-content">
+                        <p id="sidebar-hitokoto">加载中...</p>
+                    </div>
+                </div>
+
+                <!-- CSDN随机文章 -->
+                <div class="widget">
+                    <h3 class="widget-title">CSDN随机文章</h3>
+                    <div class="widget-content">
+                        <ul id="csdn-articles" class="csdn-articles-list">
+                            <li>加载中...</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 分类 -->
+                <div class="widget">
+                    <h3 class="widget-title">分类</h3>
+                    <ul class="category-list">
+                        <li><a href="#">技术 (3)</a></li>
+                        <li><a href="#">生活 (2)</a></li>
+                    </ul>
+                </div>
+
+                <!-- 归档 -->
+                <div class="widget">
+                    <h3 class="widget-title">归档</h3>
+                    <ul class="archive-list">
+                        <li><a href="#">2024年1月 (3)</a></li>
+                        <li><a href="#">2023年12月 (2)</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 我的个人博客. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- 背景音乐 -->
+    <audio autoplay loop hidden>
+        <source src="https://music.163.com/song/media/outer/url?id=1395708481.mp3" type="audio/mpeg">
+        您的浏览器不支持音频播放
+    </audio>
+
+    <!-- JavaScript -->
+    <script>
+        // 标签页切换功能
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取所有导航链接
+            const navLinks = document.querySelectorAll('.nav-link');
+            // 获取所有标签页内容
+            const tabPanes = document.querySelectorAll('.tab-pane');
+
+            // 导航链接点击事件
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 获取目标标签页ID
+                    const targetTab = this.getAttribute('data-tab');
+                    
+                    // 移除所有导航链接的激活状态
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    // 移除所有标签页的激活状态
+                    tabPanes.forEach(pane => pane.classList.remove('active'));
+                    
+                    // 添加当前导航链接的激活状态
+                    this.classList.add('active');
+                    // 添加目标标签页的激活状态
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
+
+            // 随机一言功能
+            function fetchHitokoto() {
+                fetch('https://v1.hitokoto.cn/')
+                    .then(response => response.json())
+                    .then(data => {
+                        // 更新首页的一言
+                        const hitokotoText = document.getElementById('hitokoto-text');
+                        const hitokotoAuthor = document.getElementById('hitokoto-author');
+                        if (hitokotoText) {
+                            hitokotoText.textContent = data.hitokoto;
+                            hitokotoAuthor.textContent = `—— ${data.from_who || data.from}`;
+                        }
+                        
+                        // 更新侧边栏的一言
+                        const sidebarHitokoto = document.getElementById('sidebar-hitokoto');
+                        if (sidebarHitokoto) {
+                            sidebarHitokoto.textContent = data.hitokoto;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('获取一言失败:', error);
+                        const hitokotoText = document.getElementById('hitokoto-text');
+                        const sidebarHitokoto = document.getElementById('sidebar-hitokoto');
+                        if (hitokotoText) hitokotoText.textContent = '获取一言失败，请刷新页面重试。';
+                        if (sidebarHitokoto) sidebarHitokoto.textContent = '获取一言失败，请刷新页面重试。';
+                    });
+            }
+
+            // CSDN随机文章功能
+            function fetchCSDNAticles() {
+                // 由于CSDN API需要认证，这里使用模拟数据
+                const mockArticles = [
+                    { title: 'JavaScript高级特性详解', url: 'https://blog.csdn.net/example/article/details/123456789' },
+                    { title: 'React hooks实战指南', url: 'https://blog.csdn.net/example/article/details/987654321' },
+                    { title: 'CSS Grid布局完全指南', url: 'https://blog.csdn.net/example/article/details/112233445' },
+                    { title: 'Node.js性能优化技巧', url: 'https://blog.csdn.net/example/article/details/556677889' },
+                    { title: 'TypeScript入门到精通', url: 'https://blog.csdn.net/example/article/details/998877665' }
+                ];
+                
+                // 随机打乱文章顺序
+                const shuffledArticles = mockArticles.sort(() => Math.random() - 0.5);
+                
+                // 更新CSDN文章列表
+                const csdnArticlesList = document.getElementById('csdn-articles');
+                if (csdnArticlesList) {
+                    csdnArticlesList.innerHTML = '';
+                    shuffledArticles.forEach(article => {
+                        const li = document.createElement('li');
+                        const a = document.createElement('a');
+                        a.href = article.url;
+                        a.target = '_blank';
+                        a.textContent = article.title;
+                        li.appendChild(a);
+                        csdnArticlesList.appendChild(li);
+                    });
+                }
+            }
+
+            // 初始化
+            fetchHitokoto();
+            fetchCSDNAticles();
+        });
+    </script>
+</body>
+</html>
