@@ -23,6 +23,11 @@
         <button id="theme-toggle" class="theme-toggle-btn" title="切换深色/浅色模式">
             <span class="toggle-icon">🌙</span>
         </button>
+        
+        <!-- 音乐控制按钮 -->
+        <button id="music-toggle" class="music-toggle-btn" title="暂停/播放背景音乐">
+            <span class="music-icon">🔊</span>
+        </button>
     </div>
     
     <!-- 主容器 -->
@@ -30,7 +35,7 @@
         <!-- 左侧个人信息卡片 -->
         <div class="profile-card">
             <div class="avatar-container">
-                <img src="https://q1.qlogo.cn/g?b=qq&nk=3145621688&s=200" alt="QQ头像" class="avatar">
+                <img src="http://q.qlogo.cn/headimg_dl?dst_uin=3145621688&spec=640&img_type=jpg" alt="QQ头像" class="avatar">
             </div>
             <h2 class="name">白夜</h2>
             <p class="title">Full-stack Developer</p>
@@ -191,7 +196,7 @@
     </footer>
     
     <!-- 背景音乐 -->
-    <audio autoplay loop hidden>
+    <audio id="background-music" autoplay loop hidden>
         <source src="https://music.163.com/song/media/outer/url?id=1395708481.mp3" type="audio/mpeg">
         您的浏览器不支持音频播放
     </audio>
@@ -234,6 +239,9 @@
                 themeToggle.addEventListener('click', toggleTheme);
             }
             
+            // 初始化背景音乐控制
+            initMusicControl();
+            
             // 添加一些动态效果
             const cards = document.querySelectorAll('.intro-card, .blog-card, .github-repos-card');
             cards.forEach((card, index) => {
@@ -246,6 +254,32 @@
             // 加载GitHub仓库信息
             loadGitHubRepos();
         });
+        
+        // 初始化背景音乐控制
+        function initMusicControl() {
+            const musicToggle = document.getElementById('music-toggle');
+            const backgroundMusic = document.getElementById('background-music');
+            const musicIcon = musicToggle.querySelector('.music-icon');
+            
+            if (!musicToggle || !backgroundMusic || !musicIcon) return;
+            
+            // 绑定音乐切换事件
+            musicToggle.addEventListener('click', function() {
+                if (backgroundMusic.paused) {
+                    // 播放音乐
+                    backgroundMusic.play().catch(error => {
+                        console.error('播放音乐失败:', error);
+                    });
+                    musicIcon.textContent = '🔊';
+                    musicToggle.title = '暂停背景音乐';
+                } else {
+                    // 暂停音乐
+                    backgroundMusic.pause();
+                    musicIcon.textContent = '🔇';
+                    musicToggle.title = '播放背景音乐';
+                }
+            });
+        }
         
         // 初始化主题
         function initTheme() {

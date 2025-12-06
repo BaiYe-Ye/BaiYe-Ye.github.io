@@ -106,10 +106,14 @@ body.dark-mode {
     top: 20px;
     right: 20px;
     z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
 }
 
 /* 深色模式切换按钮 */
-.theme-toggle-btn {
+.theme-toggle-btn, .music-toggle-btn {
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
@@ -127,21 +131,21 @@ body.dark-mode {
     padding: 0;
 }
 
-/* 深色模式切换按钮悬停效果 */
-.theme-toggle-btn:hover {
+/* 深色模式切换按钮和音乐按钮悬停效果 */
+.theme-toggle-btn:hover, .music-toggle-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* 深色模式下的切换按钮 */
-.dark-mode .theme-toggle-btn {
+/* 深色模式下的切换按钮和音乐按钮 */
+.dark-mode .theme-toggle-btn, .dark-mode .music-toggle-btn {
     background: rgba(30, 30, 40, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 /* 切换按钮图标 */
-.toggle-icon {
+.toggle-icon, .music-icon {
     transition: transform 0.3s ease;
 }
 
@@ -149,6 +153,15 @@ body.dark-mode {
 .dark-mode .toggle-icon {
     transform: rotate(180deg);
     content: '☀️';
+}
+
+/* 音乐图标变换效果 */
+.music-icon {
+    transition: transform 0.3s ease;
+}
+
+.dark-mode .music-icon {
+    transform: scale(1.1);
 }
 
 /* 主容器 */
