@@ -28,7 +28,15 @@
         <button id="music-toggle" class="music-toggle-btn" title="暂停/播放背景音乐">
             <span class="music-icon">🔊</span>
         </button>
+        
+        <!-- 朝鲜国旗按钮 -->
+        <button id="korea-toggle" class="korea-toggle-btn" title="切换主题">
+            <span class="korea-icon">🇰🇵</span>
+        </button>
     </div>
+    
+    <!-- 弹幕容器 -->
+    <div id="danmaku-container"></div>
     
     <!-- 主容器 -->
     <div class="main-container">
@@ -288,6 +296,9 @@
             // 初始化背景音乐控制
             initMusicControl();
             
+            // 初始化朝鲜国旗按钮
+            initKoreaToggle();
+            
             // 添加一些动态效果
             const cards = document.querySelectorAll('.intro-card, .blog-card, .github-repos-card');
             cards.forEach((card, index) => {
@@ -325,6 +336,78 @@
                     musicToggle.title = '播放背景音乐';
                 }
             });
+        }
+        
+        // 初始化朝鲜国旗按钮
+        function initKoreaToggle() {
+            const koreaToggle = document.getElementById('korea-toggle');
+            if (!koreaToggle) return;
+            
+            // 绑定点击事件
+            koreaToggle.addEventListener('click', function() {
+                // 1. 将界面颜色改为红色
+                document.body.style.background = 'linear-gradient(135deg, rgba(255, 0, 0, 0.9), rgba(200, 0, 0, 0.9))';
+                document.body.classList.remove('dark-mode');
+                
+                // 2. 更改头像
+                const avatar = document.querySelector('.avatar');
+                if (avatar) {
+                    avatar.src = '？/OIP-C.webp';
+                }
+                
+                // 3. 更改背景图片
+                document.body.style.backgroundImage = 'url(？/-C.webp)';
+                document.body.style.backgroundBlendMode = 'overlay';
+                
+                // 4. 播放弹幕
+                playDanmaku();
+            });
+        }
+        
+        // 播放弹幕
+        function playDanmaku() {
+            const container = document.getElementById('danmaku-container');
+            if (!container) return;
+            
+            // 弹幕内容
+            const danmakuContents = ['\(\O/\)', '\(😭🙌\)', '\(😭✍️\)'];
+            
+            // 清空现有弹幕
+            container.innerHTML = '';
+            
+            // 创建多个弹幕
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const danmaku = document.createElement('div');
+                    danmaku.className = 'danmaku';
+                    
+                    // 随机选择弹幕内容
+                    const content = danmakuContents[Math.floor(Math.random() * danmakuContents.length)];
+                    danmaku.textContent = content;
+                    
+                    // 随机位置和样式
+                    const top = Math.random() * (container.clientHeight - 40);
+                    const fontSize = 20 + Math.random() * 20;
+                    const duration = 5 + Math.random() * 5;
+                    const color = `hsl(${Math.random() * 60}, 100%, 50%)`;
+                    
+                    // 设置样式
+                    danmaku.style.top = `${top}px`;
+                    danmaku.style.fontSize = `${fontSize}px`;
+                    danmaku.style.color = color;
+                    danmaku.style.animationDuration = `${duration}s`;
+                    
+                    // 添加到容器
+                    container.appendChild(danmaku);
+                    
+                    // 自动移除弹幕
+                    setTimeout(() => {
+                        if (danmaku.parentNode) {
+                            danmaku.parentNode.removeChild(danmaku);
+                        }
+                    }, duration * 1000);
+                }, i * 200);
+            }
         }
         
         // 初始化主题

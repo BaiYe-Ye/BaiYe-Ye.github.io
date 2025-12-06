@@ -172,6 +172,83 @@ body.dark-mode {
     transform: scale(1.1);
 }
 
+/* 朝鲜国旗按钮 */
+.korea-toggle-btn {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+/* 朝鲜国旗按钮悬停效果 */
+.korea-toggle-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* 深色模式下的朝鲜国旗按钮 */
+.dark-mode .korea-toggle-btn {
+    background: rgba(30, 30, 40, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* 朝鲜国旗按钮图标 */
+.korea-icon {
+    transition: transform 0.3s ease;
+}
+
+.dark-mode .korea-icon {
+    transform: scale(1.1);
+}
+
+/* 弹幕容器 */
+#danmaku-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+/* 弹幕样式 */
+.danmaku {
+    position: absolute;
+    white-space: nowrap;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    animation: danmaku-move linear infinite;
+    opacity: 0;
+}
+
+/* 弹幕动画 */
+@keyframes danmaku-move {
+    0% {
+        transform: translateX(100vw);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-100%);
+        opacity: 1;
+    }
+}
+
 /* 主容器 */
 .main-container {
     display: grid;
