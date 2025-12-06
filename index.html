@@ -370,7 +370,22 @@
                     console.error('头像元素未找到');
                 }
                 
-                // 3. 播放弹幕
+                // 3. 更改名字为太阳
+                const nameElement = document.querySelector('.name');
+                if (nameElement) {
+                    nameElement.textContent = '太阳';
+                }
+                
+                // 4. 切换背景音乐并自动播放
+                const backgroundMusic = document.getElementById('background-music');
+                if (backgroundMusic) {
+                    backgroundMusic.src = 'music/w.mp3';
+                    backgroundMusic.play().catch(error => {
+                        console.error('播放音乐失败:', error);
+                    });
+                }
+                
+                // 5. 播放弹幕
                 playDanmaku();
             });
         }
@@ -380,8 +395,8 @@
             const container = document.getElementById('danmaku-container');
             if (!container) return;
             
-            // 弹幕内容
-            const danmakuContents = ['\(\O/\)', '\(😭🙌\)', '\(😭✍️\)'];
+            // 弹幕内容 - 修复反斜杠显示问题
+            const danmakuContents = ['(\O/)', '(😭🙌)', '(😭✍️)'];
             
             // 清空现有弹幕
             container.innerHTML = '';
