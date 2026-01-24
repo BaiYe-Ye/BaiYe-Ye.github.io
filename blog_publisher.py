@@ -196,26 +196,21 @@ class BlogPublisher:
         excerpt = re.sub(r'<[^>]+>', '', content)[:200]
         excerpt = re.sub(r'\s+', ' ', excerpt).strip()
         
-        # 生成HTML代码 - 包含文章阅读功能
-        html = f'''                <!-- 文章 -->
-                <article class="post" data-post-id="{article_id}">
-                    <div class="post-header">
-                        <h2 class="post-title"><a href="#{article_id}" onclick="togglePostContent('{article_id}'); return false;">{title}</a></h2>
-                        <div class="post-meta">
-                            <span class="post-date">{date}</span>
-                            <span class="post-category">{category}</span>
-                        </div>
-                    </div>
-                    <div class="post-excerpt">
-                        <p>{excerpt}...</p>
-                    </div>
-                    <div class="post-content" style="display: none;">
-                        <p>{content}</p>
-                    </div>
-                    <div class="post-footer">
-                        <a href="#{article_id}" class="read-more" onclick="togglePostContent('{article_id}'); return false;">阅读更多</a>
-                    </div>
-                </article>'''
+        # 生成HTML代码 - 与当前博客结构匹配
+        html = f'''                        <!-- 文章 -->
+                        <div class="blog-post-item" data-post-id="{article_id}">
+                            <div class="post-info">
+                                <h4 class="post-title"><a href="#{article_id}" onclick="togglePostContent('{article_id}'); return false;">{title}</a></h4>
+                                <p class="post-meta">{date} • {category}</p>
+                                <p class="post-excerpt">{excerpt}...</p>
+                                <div class="post-content" style="display: none;">
+                                    {content}
+                                </div>
+                            </div>
+                            <div class="post-actions">
+                                <a href="#{article_id}" class="read-more" onclick="togglePostContent('{article_id}'); return false;">阅读更多</a>
+                            </div>
+                        </div>'''
         return html
     
     def preview_article_text(self):
@@ -305,38 +300,25 @@ class BlogPublisher:
             with open(index_path, "r", encoding="utf-8") as f:
                 index_content = f.read()
             
-            # 根据分类确定要插入的标签页
-            tab_ids = {
-                "技术": "tech",
-                "生活": "life",
-                "其他": "home"
-            }
+            # 找到博客文章列表的位置
+            blog_section_start = index_content.find('<div id="blog" class="blog-card">')
+            blog_posts_start = index_content.find('<div class="blog-posts">', blog_section_start)
+            blog_posts_end = index_content.find('</div>', blog_posts_start)
             
-            # 插入到首页
-            # 找到首页的文章列表
-            home_tab_start = index_content.find('<div id="home" class="tab-pane')
-            home_posts_start = index_content.find('<section class="posts">', home_tab_start)
-            home_section_end = index_content.find('</section>', home_posts_start)
-            
-            if home_posts_start == -1 or home_section_end == -1:
-                messagebox.showerror("错误", "未找到首页文章列表")
+            if blog_posts_start == -1 or blog_posts_end == -1:
+                messagebox.showerror("错误", "未找到博客文章列表")
                 return
             
-            # 插入到首页的文章列表开头
-            home_insert_pos = home_posts_start + len('<section class="posts">') + 4  # +4 for newline
-            new_index_content = index_content[:home_insert_pos] + article_html + "\n" + index_content[home_insert_pos:]
-            
-            # 如果分类不是"其他"，还需要插入到对应的分类标签页
-            if category != "其他":
-                tab_id = tab_ids[category]
-                tab_start = new_index_content.find(f'<div id="{tab_id}" class="tab-pane')
-                tab_posts_start = new_index_content.find('<section class="posts">', tab_start)
-                tab_section_end = new_index_content.find('</section>', tab_posts_start)
-                
-                if tab_posts_start != -1 and tab_section_end != -1:
-                    # 插入到分类标签页的文章列表开头
-                    tab_insert_pos = tab_posts_start + len('<section class="posts">') + 4  # +4 for newline
-                    new_index_content = new_index_content[:tab_insert_pos] + article_html + "\n" + new_index_content[tab_insert_pos:]
+            # 插入到博客文章列表开头
+            # 先找到第一个文章项，然后插入到它前面
+            first_post_start = index_content.find('<div class="blog-post-item"', blog_posts_start)
+            if first_post_start != -1:
+                # 在第一个文章项前插入新文章
+                new_index_content = index_content[:first_post_start] + article_html + "\n" + index_content[first_post_start:]
+            else:
+                # 如果没有文章，直接插入到blog-posts中
+                insert_pos = blog_posts_start + len('<div class="blog-posts">') + 4  # +4 for newline
+                new_index_content = index_content[:insert_pos] + article_html + "\n" + index_content[insert_pos:]
             
             # 写入更新后的index.html文件
             with open(index_path, "w", encoding="utf-8") as f:

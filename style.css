@@ -5,12 +5,106 @@
     box-sizing: border-box;
 }
 
+/* 色彩魔法 - 基础色彩系统 */
+:root {
+    /* 主色调（科技蓝） */
+    --primary-color-1: #667eea;
+    --primary-color-2: #764ba2;
+    --primary-color-3: #f093fb;
+    
+    /* 辅助色 */
+    --secondary-color-1: #4facfe;
+    --secondary-color-2: #00f2fe;
+    --secondary-color-3: #43e97b;
+    --secondary-color-4: #fa709a;
+    --secondary-color-5: #fee140;
+    
+    /* 强调色 */
+    --accent-color-1: #ff0080;
+    --accent-color-2: #38ef7d;
+    
+    /* 季节配色 */
+    --spring-color: #ffb3ba;
+    --summer-color: #bae1ff;
+    --autumn-color: #ffa69e;
+    --winter-color: #e8f4f8;
+    
+    /* 地理位置配色 */
+    --north-color: #4facfe;
+    --south-color: #fa709a;
+    
+    /* 情绪配色 */
+    --passion-color: #ff4757;
+    --calm-color: #2ed573;
+    
+    /* 主题色 */
+    --tech-color: #3742fa;
+    --life-color: #2ed573;
+    --thought-color: #57606f;
+    
+    /* 情绪配色 */
+    --emotion-passion: #ff4757;
+    --emotion-calm: #2ed573;
+    --emotion-joy: #ffa502;
+    --emotion-sadness: #70a1ff;
+    --emotion-anger: #ff6b81;
+    --emotion-fear: #a4b0be;
+    --emotion-surprise: #ff6348;
+    --emotion-disgust: #2ed573;
+    
+    /* 动态配色 - 由JavaScript设置 */
+    --time-gradient-start: #667eea;
+    --time-gradient-end: #764ba2;
+    --time-bg-color: rgba(255, 255, 255, 0.95);
+    --season-gradient: linear-gradient(135deg, rgba(102, 126, 234, 0.6), rgba(118, 75, 162, 0.6));
+    --season-text-color: #667eea;
+    --location-gradient: linear-gradient(135deg, rgba(79, 172, 254, 0.3), rgba(0, 242, 254, 0.3));
+    --location-accent: #4facfe;
+}
+
+/* 阅读进度背景渐变 */
+body {
+    background-size: 200% 200%;
+    animation: background-transition 15s ease infinite;
+}
+
+/* 卡片悬停效果增强 */
+.intro-card:hover, .blog-card:hover, .github-repos-card:hover, .activity-chart-card:hover {
+    animation: float 3s ease-in-out infinite;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* 按钮点击效果 */
+button, a {
+    transition: all 0.3s ease;
+}
+
+button:active, .github-btn:active, .read-more:active {
+    animation: button-click 0.3s ease-in-out;
+}
+
+/* 代码块样式增强 - 玻璃态效果 */
+pre, code {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 8px;
+    padding: 2px 4px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+pre {
+    padding: 15px;
+    overflow-x: auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 /* 基础设置 */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: #333;
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8)), url('backpicture/wallhaven-rrdom7.webp');
+    background: linear-gradient(135deg, var(--primary-color-1), var(--primary-color-2)), url('backpicture/wallhaven-rrdom7.webp');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -18,6 +112,24 @@ body {
     min-height: 100vh;
     padding: 20px;
     transition: all 0.3s ease;
+    
+    /* 个性化光标 - 编程下划线光标 */
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="%23667eea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="0" y1="19" x2="20" y2="19"></line></svg>') 0 20, auto;
+}
+
+/* 链接和按钮 - 指针光标 */
+a, button, .read-more, .github-btn {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="%23667eea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>') 10 10, pointer;
+}
+
+/* 代码块 - 文本选择光标 */
+pre, code {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="%23667eea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="2" ry="2"></rect></svg>') 10 10, text;
+}
+
+/* 图片 - 缩放光标 */
+img {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="%23667eea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"></circle><line x1="2" y1="10" x2="18" y2="10"></line><line x1="10" y1="2" x2="10" y2="18"></line></svg>') 10 10, zoom-in;
 }
 
 /* 深色模式基础样式 */
@@ -28,6 +140,134 @@ body.dark-mode {
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
+}
+
+/* 工作模式样式 - 高对比度 */
+body.work-mode {
+    color: #2d3436;
+    background: linear-gradient(135deg, rgba(241, 242, 246, 0.95), rgba(230, 236, 240, 0.95)), url('backpicture/wallhaven-rrdom7.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+body.work-mode .glass-effect {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.work-mode .quick-nav-container, 
+body.work-mode .theme-toggle-container, 
+body.work-mode .profile-card, 
+body.work-mode .intro-card, 
+body.work-mode .blog-card, 
+body.work-mode .github-repos-card, 
+body.work-mode .activity-chart-card, 
+body.work-mode .footer {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 阅读模式样式 - 护眼色 */
+body.reading-mode {
+    color: #3e4c43;
+    background: linear-gradient(135deg, rgba(236, 240, 231, 0.95), rgba(229, 235, 224, 0.95)), url('backpicture/wallhaven-rrdom7.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+body.reading-mode .glass-effect {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.reading-mode .quick-nav-container, 
+body.reading-mode .theme-toggle-container, 
+body.reading-mode .profile-card, 
+body.reading-mode .intro-card, 
+body.reading-mode .blog-card, 
+body.reading-mode .github-repos-card, 
+body.reading-mode .activity-chart-card, 
+body.reading-mode .footer {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+body.reading-mode .blog-post-item {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* 创意模式样式 - 鲜艳色彩 */
+body.creative-mode {
+    color: #333;
+    background: linear-gradient(135deg, rgba(255, 182, 193, 0.8), rgba(221, 160, 221, 0.8), rgba(186, 225, 255, 0.8)), url('backpicture/wallhaven-rrdom7.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    animation: background-shift 15s ease infinite;
+}
+
+@keyframes background-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+body.creative-mode .glass-effect {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+body.creative-mode .quick-nav-container, 
+body.creative-mode .theme-toggle-container, 
+body.creative-mode .profile-card, 
+body.creative-mode .intro-card, 
+body.creative-mode .blog-card, 
+body.creative-mode .github-repos-card, 
+body.creative-mode .activity-chart-card, 
+body.creative-mode .footer {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    animation: card-glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes card-glow {
+    from { box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15); }
+    to { box-shadow: 0 8px 40px rgba(102, 126, 234, 0.3); }
+}
+
+body.creative-mode .blog-post-item {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+body.creative-mode .blog-post-item:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(102, 126, 234, 0.25);
 }
 
 /* 玻璃拟态基础样式 */
@@ -246,6 +486,137 @@ body.dark-mode {
     100% {
         transform: translateX(-100%);
         opacity: 1;
+    }
+}
+
+/* 加载动画 - 代码逐行显示 */
+@keyframes code-load {
+    0% {
+        width: 0;
+        opacity: 0;
+    }
+    100% {
+        width: 100%;
+        opacity: 1;
+    }
+}
+
+/* 页面滚动进度背景渐变 */
+@keyframes background-transition {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+/* 卡片悬停效果 - 浮动动画 */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* 按钮点击效果 - 弹性动画 */
+@keyframes button-click {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.95);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* 粒子效果容器 */
+.particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* 基础粒子样式 */
+.particle {
+    position: absolute;
+    pointer-events: none;
+    animation: particle-float linear infinite;
+    opacity: 0;
+}
+
+/* 个性化粒子 - 名字首字母 */
+.particle.initial {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--primary-color-1);
+    text-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+}
+
+/* 行为化粒子 - 鼠标跟随 */
+.particle.mouse-follower {
+    width: 8px;
+    height: 8px;
+    background: var(--accent-color-1);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent-color-1);
+}
+
+/* 情景化粒子 - 数据流 */
+.particle.data-stream {
+    width: 2px;
+    height: 20px;
+    background: linear-gradient(to bottom, transparent, var(--secondary-color-1), transparent);
+    opacity: 0.8;
+}
+
+/* 粒子飘散动画 */
+@keyframes particle-float {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* 粒子旋转动画 */
+@keyframes particle-rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 粒子缩放动画 */
+@keyframes particle-pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
     }
 }
 
@@ -768,6 +1139,144 @@ body.dark-mode {
     color: #aaa;
 }
 
+/* 彩蛋容器 */
+.easter-egg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998;
+    overflow: hidden;
+}
+
+/* 隐藏彩蛋 */
+.hidden-easter-egg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.hidden-easter-egg.show {
+    display: flex;
+    animation: easter-egg-appear 0.5s ease;
+}
+
+@keyframes easter-egg-appear {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.easter-egg-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    animation: easter-egg-bounce 1s ease-in-out;
+}
+
+@keyframes easter-egg-bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.easter-egg-content h2 {
+    color: #667eea;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.easter-egg-content p {
+    color: #555;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+
+.easter-egg-emoji {
+    font-size: 3rem;
+    margin-bottom: 30px;
+    animation: emoji-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes emoji-pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+/* 庆祝粒子动画 */
+@keyframes celebration-float {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-100px) rotate(180deg) scale(1.2);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-200px) rotate(360deg) scale(0);
+        opacity: 0;
+    }
+}
+
+.close-easter-egg-btn {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.close-easter-egg-btn:hover {
+    background: #5a6fd8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* 页脚彩蛋提示 */
+.footer-easter-egg {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 10px;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.footer:hover .footer-easter-egg {
+    opacity: 1;
+    color: #667eea;
+}
+
 /* 页脚 */
 .footer {
     background: rgba(255, 255, 255, 0.25);
@@ -801,6 +1310,117 @@ body.dark-mode {
     margin: 0;
 }
 
+/* 加载动画样式 */
+.loading-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-color-1), var(--primary-color-2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loading-animation.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loading-content {
+    text-align: center;
+    color: white;
+    max-width: 80%;
+}
+
+.loading-code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    text-align: left;
+    max-width: 400px;
+    margin: 0 auto 30px;
+}
+
+.code-line {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: code-line-appear 0.5s ease forwards;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    border-left: 3px solid var(--accent-color-1);
+}
+
+.code-line:nth-child(1) { animation-delay: 0.2s; }
+.code-line:nth-child(2) { animation-delay: 0.4s; }
+.code-line:nth-child(3) { animation-delay: 0.6s; }
+.code-line:nth-child(4) { animation-delay: 0.8s; }
+.code-line:nth-child(5) { animation-delay: 1s; }
+
+@keyframes code-line-appear {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.loading-progress {
+    margin-top: 20px;
+}
+
+.progress-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.dot {
+    width: 15px;
+    height: 15px;
+    background: white;
+    border-radius: 50%;
+    animation: dot-bounce 1.4s ease-in-out infinite both;
+    opacity: 0.6;
+}
+
+.dot:nth-child(1) { animation-delay: -0.32s; }
+.dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes dot-bounce {
+    0%, 80%, 100% {
+        transform: scale(0);
+        opacity: 0.6;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* 页面转场效果 */
+.page-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-color-1), var(--primary-color-2));
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.page-transition.active {
+    opacity: 1;
+    visibility: visible;
+}
+
 /* 动画 */
 @keyframes fadeIn {
     from {
@@ -811,6 +1431,51 @@ body.dark-mode {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* 设备专属效果 */
+/* 桌面端专属效果 */
+body.desktop-effects .intro-card:hover,
+body.desktop-effects .blog-card:hover,
+body.desktop-effects .github-repos-card:hover,
+body.desktop-effects .activity-chart-card:hover {
+    animation: float 3s ease-in-out infinite;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+body.desktop-interactions a:hover,
+body.desktop-interactions button:hover,
+body.desktop-interactions .read-more:hover,
+body.desktop-interactions .github-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+/* 移动端专属效果 - 简化动画以提高性能 */
+body.mobile-effects .intro-card:hover,
+body.mobile-effects .blog-card:hover,
+body.mobile-effects .github-repos-card:hover,
+body.mobile-effects .activity-chart-card:hover {
+    animation: none;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+body.mobile-effects .particle {
+    animation-duration: 10s;
+    opacity: 0.6;
+}
+
+/* 平板中间态 - 利用更大屏幕展示多栏和画中画效果 */
+body.tablet-effects .github-repos {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+body.tablet-effects .blog-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
 }
 
 /* 响应式设计 */
@@ -826,6 +1491,10 @@ body.dark-mode {
     
     .content-area {
         width: 100%;
+    }
+    
+    body.tablet-effects .blog-posts {
+        grid-template-columns: 1fr;
     }
 }
 
