@@ -70,8 +70,8 @@ body {
 
 /* 卡片悬停效果增强 */
 .intro-card:hover, .blog-card:hover, .github-repos-card:hover, .activity-chart-card:hover {
-    animation: float 3s ease-in-out infinite;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
 }
 
 /* 按钮点击效果 */
@@ -132,20 +132,158 @@ img {
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="%23667eea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"></circle><line x1="2" y1="10" x2="18" y2="10"></line><line x1="10" y1="2" x2="10" y2="18"></line></svg>') 10 10, zoom-in;
 }
 
+/* 主题切换过渡动画 */
+body {
+    transition: background-color 0.5s ease, color 0.5s ease, background 0.5s ease;
+}
+
+body.theme-transitioning {
+    overflow: hidden;
+}
+
+body.theme-transitioning::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-color-1), var(--primary-color-2));
+    z-index: 9999;
+    animation: theme-fade 0.5s ease forwards;
+}
+
+@keyframes theme-fade {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+}
+
+/* 图标弹跳动画 */
+@keyframes icon-bounce {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+    }
+    25% {
+        transform: scale(1.2) rotate(-10deg);
+    }
+    50% {
+        transform: scale(0.9) rotate(10deg);
+    }
+    75% {
+        transform: scale(1.1) rotate(-5deg);
+    }
+}
+
+/* 星星闪烁动画 */
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.2;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.5);
+    }
+}
+
+/* 彩虹脉冲动画 */
+@keyframes rainbow-pulse {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.1);
+    }
+}
+
 /* 深色模式基础样式 */
 body.dark-mode {
     color: #e0e0e0;
-    background: linear-gradient(135deg, rgba(30, 30, 46, 0.9), rgba(49, 46, 129, 0.9)), url('backpicture/wallhaven-rrdom7.webp');
+    background: linear-gradient(135deg, rgba(30, 30, 46, 0.95), rgba(49, 46, 129, 0.95)), url('backpicture/wallhaven-rrdom7.webp');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
 }
 
+body.dark-mode .profile-card,
+body.dark-mode .intro-card,
+body.dark-mode .blog-card,
+body.dark-mode .github-repos-card,
+body.dark-mode .activity-chart-card,
+body.dark-mode .footer {
+    background: rgba(30, 30, 40, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .blog-post-item {
+    background: rgba(40, 40, 50, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .blog-post-item:hover {
+    background: rgba(50, 50, 60, 0.7);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+body.dark-mode .tech-tag {
+    background-color: rgba(102, 126, 234, 0.2);
+    color: #8892b0;
+}
+
+body.dark-mode .name {
+    color: #e0e0e0;
+}
+
+body.dark-mode .title,
+body.dark-mode .stat-label,
+body.dark-mode .post-meta {
+    color: #aaa;
+}
+
+body.dark-mode .post-title a {
+    color: #e0e0e0;
+}
+
+body.dark-mode .post-excerpt,
+body.dark-mode .post-content {
+    color: #bbb;
+}
+
+body.dark-mode .intro-text,
+body.dark-mode .intro-list li {
+    color: #ccc;
+}
+
+body.dark-mode .card-title {
+    color: #e0e0e0;
+}
+
+body.dark-mode .quick-nav-link {
+    color: #e0e0e0;
+}
+
+body.dark-mode .quick-nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
 /* 工作模式样式 - 高对比度 */
 body.work-mode {
     color: #2d3436;
-    background: linear-gradient(135deg, rgba(241, 242, 246, 0.95), rgba(230, 236, 240, 0.95)), url('backpicture/wallhaven-rrdom7.webp');
+    background: linear-gradient(135deg, rgba(241, 242, 246, 0.98), rgba(230, 236, 240, 0.98)), url('backpicture/wallhaven-rrdom7.webp');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -153,10 +291,10 @@ body.work-mode {
 }
 
 body.work-mode .glass-effect {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 body.work-mode .quick-nav-container, 
@@ -167,17 +305,58 @@ body.work-mode .blog-card,
 body.work-mode .github-repos-card, 
 body.work-mode .activity-chart-card, 
 body.work-mode .footer {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+body.work-mode .blog-post-item {
     background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-left: 4px solid #667eea;
+}
+
+body.work-mode .blog-post-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+body.work-mode .github-btn,
+body.work-mode .read-more {
+    background-color: #667eea;
+    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+}
+
+body.work-mode .github-btn:hover,
+body.work-mode .read-more:hover {
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+body.work-mode .tech-tag {
+    background-color: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+    font-weight: 600;
+}
+
+body.work-mode .avatar {
+    border-color: #667eea;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+body.work-mode .card-title::before {
+    background-color: #667eea;
+}
+
+body.work-mode .stat-number {
+    color: #667eea;
 }
 
 /* 阅读模式样式 - 护眼色 */
 body.reading-mode {
     color: #3e4c43;
-    background: linear-gradient(135deg, rgba(236, 240, 231, 0.95), rgba(229, 235, 224, 0.95)), url('backpicture/wallhaven-rrdom7.webp');
+    background: linear-gradient(135deg, rgba(236, 240, 231, 0.98), rgba(229, 235, 224, 0.98)), url('backpicture/wallhaven-rrdom7.webp');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -185,10 +364,10 @@ body.reading-mode {
 }
 
 body.reading-mode .glass-effect {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(62, 76, 67, 0.08);
 }
 
 body.reading-mode .quick-nav-container, 
@@ -199,24 +378,76 @@ body.reading-mode .blog-card,
 body.reading-mode .github-repos-card, 
 body.reading-mode .activity-chart-card, 
 body.reading-mode .footer {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(62, 76, 67, 0.08);
+    box-shadow: 0 4px 15px rgba(62, 76, 67, 0.05);
 }
 
 body.reading-mode .blog-post-item {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(62, 76, 67, 0.05);
+    border-left: 4px solid #6b8e6b;
+}
+
+body.reading-mode .blog-post-item:hover {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 6px 20px rgba(62, 76, 67, 0.1);
+}
+
+body.reading-mode .github-btn,
+body.reading-mode .read-more {
+    background-color: #6b8e6b;
+}
+
+body.reading-mode .github-btn:hover,
+body.reading-mode .read-more:hover {
+    background-color: #5a7a5a;
+}
+
+body.reading-mode .tech-tag {
+    background-color: rgba(107, 142, 107, 0.15);
+    color: #6b8e6b;
+}
+
+body.reading-mode .avatar {
+    border-color: #6b8e6b;
+    box-shadow: 0 4px 15px rgba(107, 142, 107, 0.3);
+}
+
+body.reading-mode .card-title {
+    color: #3e4c43;
+}
+
+body.reading-mode .card-title::before {
+    background-color: #6b8e6b;
+}
+
+body.reading-mode .stat-number {
+    color: #6b8e6b;
+}
+
+body.reading-mode .post-content,
+body.reading-mode .intro-text {
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+body.reading-mode .post-title a {
+    color: #3e4c43;
+}
+
+body.reading-mode .post-title a:hover {
+    color: #6b8e6b;
 }
 
 /* 创意模式样式 - 鲜艳色彩 */
 body.creative-mode {
     color: #333;
-    background: linear-gradient(135deg, rgba(255, 182, 193, 0.8), rgba(221, 160, 221, 0.8), rgba(186, 225, 255, 0.8)), url('backpicture/wallhaven-rrdom7.webp');
+    background: linear-gradient(135deg, rgba(255, 182, 193, 0.85), rgba(221, 160, 221, 0.85), rgba(186, 225, 255, 0.85)), url('backpicture/wallhaven-rrdom7.webp');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -230,10 +461,10 @@ body.creative-mode {
 }
 
 body.creative-mode .glass-effect {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 body.creative-mode .quick-nav-container, 
@@ -244,30 +475,95 @@ body.creative-mode .blog-card,
 body.creative-mode .github-repos-card, 
 body.creative-mode .activity-chart-card, 
 body.creative-mode .footer {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
     animation: card-glow 3s ease-in-out infinite alternate;
 }
 
 @keyframes card-glow {
     from { box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15); }
-    to { box-shadow: 0 8px 40px rgba(102, 126, 234, 0.3); }
+    to { box-shadow: 0 8px 40px rgba(255, 105, 180, 0.3); }
 }
 
 body.creative-mode .blog-post-item {
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     transition: all 0.3s ease;
 }
 
 body.creative-mode .blog-post-item:hover {
     transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 12px 40px rgba(102, 126, 234, 0.25);
+    box-shadow: 0 12px 40px rgba(255, 105, 180, 0.25);
+}
+
+body.creative-mode .github-btn,
+body.creative-mode .read-more {
+    background: linear-gradient(135deg, #ff6b9d, #c44dff);
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+}
+
+body.creative-mode .github-btn:hover,
+body.creative-mode .read-more:hover {
+    background: linear-gradient(135deg, #ff4d8d, #b33de6);
+    box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+}
+
+body.creative-mode .tech-tag {
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.2), rgba(196, 77, 255, 0.2));
+    color: #c44dff;
+    font-weight: 600;
+}
+
+body.creative-mode .avatar {
+    border: 4px solid transparent;
+    background-image: linear-gradient(white, white), linear-gradient(135deg, #ff6b9d, #c44dff, #4facfe);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    box-shadow: 0 4px 20px rgba(255, 105, 180, 0.4);
+}
+
+body.creative-mode .card-title {
+    background: linear-gradient(135deg, #ff6b9d, #c44dff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+body.creative-mode .card-title::before {
+    background: linear-gradient(135deg, #ff6b9d, #c44dff);
+}
+
+body.creative-mode .stat-number {
+    background: linear-gradient(135deg, #ff6b9d, #c44dff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+body.creative-mode .name {
+    background: linear-gradient(135deg, #ff6b9d, #c44dff, #4facfe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: text-gradient 3s ease infinite;
+}
+
+@keyframes text-gradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+body.creative-mode .post-title a:hover {
+    color: #ff6b9d;
+}
+
+body.creative-mode .quick-nav-link:hover {
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.2), rgba(196, 77, 255, 0.2));
 }
 
 /* 玻璃拟态基础样式 */
@@ -514,16 +810,6 @@ body.creative-mode .blog-post-item:hover {
     }
 }
 
-/* 卡片悬停效果 - 浮动动画 */
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
-}
-
 /* 按钮点击效果 - 弹性动画 */
 @keyframes button-click {
     0% {
@@ -641,7 +927,6 @@ body.creative-mode .blog-post-item:hover {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     text-align: center;
     height: fit-content;
-    animation: fadeIn 0.8s ease;
     transition: all 0.3s ease;
 }
 
@@ -788,9 +1073,7 @@ body.creative-mode .blog-post-item:hover {
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.18);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
 }
 
 /* 深色模式卡片 */
@@ -982,9 +1265,7 @@ body.creative-mode .blog-post-item:hover {
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.18);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
 }
 
 /* 深色模式GitHub仓库卡片 */
@@ -1008,9 +1289,7 @@ body.creative-mode .blog-post-item:hover {
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.18);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
 }
 
 /* 深色模式活动图表卡片 */
@@ -1439,8 +1718,8 @@ body.desktop-effects .intro-card:hover,
 body.desktop-effects .blog-card:hover,
 body.desktop-effects .github-repos-card:hover,
 body.desktop-effects .activity-chart-card:hover {
-    animation: float 3s ease-in-out infinite;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
 }
 
 body.desktop-interactions a:hover,
@@ -1457,7 +1736,6 @@ body.mobile-effects .intro-card:hover,
 body.mobile-effects .blog-card:hover,
 body.mobile-effects .github-repos-card:hover,
 body.mobile-effects .activity-chart-card:hover {
-    animation: none;
     transform: translateY(-3px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }

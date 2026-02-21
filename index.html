@@ -686,15 +686,6 @@
             // 初始化朝鲜国旗按钮
             initKoreaToggle();
             
-            // 添加一些动态效果
-            const cards = document.querySelectorAll('.intro-card, .blog-card, .github-repos-card');
-            cards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, index * 200);
-            });
-            
             // 加载GitHub仓库信息
             loadGitHubRepos();
         });
@@ -828,27 +819,32 @@
             'light': {
                 name: '浅色模式',
                 icon: '🌙',
-                class: ''
+                class: '',
+                description: '清新明亮的浅色主题'
             },
             'dark': {
                 name: '深色模式',
                 icon: '☀️',
-                class: 'dark-mode'
+                class: 'dark-mode',
+                description: '护眼舒适的深色主题'
             },
             'work': {
                 name: '工作模式',
                 icon: '💼',
-                class: 'work-mode'
+                class: 'work-mode',
+                description: '专注高效的工作主题'
             },
             'reading': {
                 name: '阅读模式',
                 icon: '📖',
-                class: 'reading-mode'
+                class: 'reading-mode',
+                description: '护眼舒适的阅读主题'
             },
             'creative': {
                 name: '创意模式',
                 icon: '🎨',
-                class: 'creative-mode'
+                class: 'creative-mode',
+                description: '激发灵感的创意主题'
             }
         };
         
@@ -868,7 +864,18 @@
             const nextIndex = (currentIndex + 1) % themeKeys.length;
             const nextTheme = themeKeys[nextIndex];
             
-            applyTheme(nextTheme);
+            // 添加切换动画类
+            document.body.classList.add('theme-transitioning');
+            
+            // 延迟应用主题，让过渡动画生效
+            setTimeout(() => {
+                applyTheme(nextTheme);
+                
+                // 移除切换动画类
+                setTimeout(() => {
+                    document.body.classList.remove('theme-transitioning');
+                }, 500);
+            }, 100);
         }
         
         // 应用主题
@@ -876,6 +883,9 @@
             const body = document.body;
             const toggleBtn = document.getElementById('theme-toggle');
             const toggleIcon = toggleBtn ? toggleBtn.querySelector('.toggle-icon') : null;
+            
+            // 添加过渡动画类
+            body.classList.add('theme-changing');
             
             // 移除所有主题class
             body.className = body.className.replace(/(?:^|\s)(dark|work|reading|creative)-mode(?!\S)/g, '').trim();
@@ -889,13 +899,166 @@
             // 更新图标
             if (toggleIcon && theme) {
                 toggleIcon.textContent = theme.icon;
+                toggleIcon.style.animation = 'none';
+                toggleIcon.offsetHeight; // 触发重绘
+                toggleIcon.style.animation = 'icon-bounce 0.5s ease';
             }
             
             // 保存主题偏好到localStorage
             localStorage.setItem('theme', themeName);
             
+            // 应用主题特效
+            applyThemeEffects(themeName);
+            
             // 重新初始化图表以适应新主题
-            initActivityChart();
+            setTimeout(() => {
+                initActivityChart();
+                body.classList.remove('theme-changing');
+            }, 300);
+        }
+        
+        // 应用主题特效
+        function applyThemeEffects(themeName) {
+            switch(themeName) {
+                case 'light':
+                    applyLightModeEffects();
+                    break;
+                case 'dark':
+                    applyDarkModeEffects();
+                    break;
+                case 'work':
+                    applyWorkModeEffects();
+                    break;
+                case 'reading':
+                    applyReadingModeEffects();
+                    break;
+                case 'creative':
+                    applyCreativeModeEffects();
+                    break;
+            }
+        }
+        
+        // 浅色模式特效
+        function applyLightModeEffects() {
+            // 重置所有特殊效果
+            const particles = document.querySelectorAll('.theme-particle');
+            particles.forEach(p => p.remove());
+        }
+        
+        // 深色模式特效
+        function applyDarkModeEffects() {
+            // 添加星空背景粒子
+            createStarParticles();
+        }
+        
+        // 工作模式特效
+        function applyWorkModeEffects() {
+            // 添加专注模式指示器
+            showFocusIndicator();
+        }
+        
+        // 阅读模式特效
+        function applyReadingModeEffects() {
+            // 优化字体和行距
+            const content = document.querySelectorAll('.post-content, .intro-text');
+            content.forEach(el => {
+                el.style.lineHeight = '1.8';
+                el.style.fontSize = '1.05rem';
+            });
+        }
+        
+        // 创意模式特效
+        function applyCreativeModeEffects() {
+            // 添加彩虹光晕效果
+            createRainbowGlow();
+        }
+        
+        // 创建星空粒子
+        function createStarParticles() {
+            const container = document.getElementById('particles-container');
+            if (!container) return;
+            
+            // 清除现有主题粒子
+            const existingStars = container.querySelectorAll('.star-particle');
+            existingStars.forEach(s => s.remove());
+            
+            // 创建星星
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'particle star-particle';
+                star.style.cssText = `
+                    position: absolute;
+                    width: ${Math.random() * 3 + 1}px;
+                    height: ${Math.random() * 3 + 1}px;
+                    background: white;
+                    border-radius: 50%;
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    opacity: ${Math.random() * 0.8 + 0.2};
+                    animation: twinkle ${Math.random() * 3 + 2}s ease-in-out infinite;
+                    animation-delay: ${Math.random() * 2}s;
+                `;
+                container.appendChild(star);
+            }
+        }
+        
+        // 显示专注指示器
+        function showFocusIndicator() {
+            let indicator = document.getElementById('focus-indicator');
+            if (!indicator) {
+                indicator = document.createElement('div');
+                indicator.id = 'focus-indicator';
+                indicator.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: rgba(102, 126, 234, 0.9);
+                    color: white;
+                    padding: 15px 30px;
+                    border-radius: 10px;
+                    font-size: 1.1rem;
+                    font-weight: bold;
+                    z-index: 9999;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+                `;
+                document.body.appendChild(indicator);
+            }
+            
+            indicator.textContent = '💼 专注模式已启用';
+            indicator.style.opacity = '1';
+            
+            setTimeout(() => {
+                indicator.style.opacity = '0';
+            }, 2000);
+        }
+        
+        // 创建彩虹光晕
+        function createRainbowGlow() {
+            let glow = document.getElementById('rainbow-glow');
+            if (!glow) {
+                glow = document.createElement('div');
+                glow.id = 'rainbow-glow';
+                glow.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    pointer-events: none;
+                    z-index: 0;
+                    background: radial-gradient(circle at 50% 50%, 
+                        rgba(255, 182, 193, 0.1) 0%, 
+                        rgba(221, 160, 221, 0.1) 25%, 
+                        rgba(186, 225, 255, 0.1) 50%, 
+                        rgba(255, 218, 185, 0.1) 75%, 
+                        transparent 100%);
+                    animation: rainbow-pulse 5s ease-in-out infinite;
+                `;
+                document.body.appendChild(glow);
+            }
         }
         
         // GitHub API集成 - 加载仓库信息
