@@ -44,11 +44,6 @@
             <span class="toggle-icon">🌙</span>
         </button>
         
-        <!-- 音乐控制按钮 -->
-        <button id="music-toggle" class="music-toggle-btn" title="暂停/播放背景音乐">
-            <span class="music-icon">🔊</span>
-        </button>
-        
         <!-- 朝鲜国旗按钮 -->
         <button id="korea-toggle" class="korea-toggle-btn" title="切换主题">
             <span class="korea-icon">🇰🇵</span>
@@ -287,11 +282,6 @@
     </footer>
     
     <!-- 背景音乐 -->
-    <audio id="background-music" autoplay loop hidden>
-        <source src="music/Shake and Sway.mp3" type="audio/mpeg">
-        您的浏览器不支持音频播放
-    </audio>
-
     <!-- JavaScript -->
     <script>
         // 色彩魔法 - 随时间变化的动态配色
@@ -679,41 +669,12 @@
                 themeToggle.addEventListener('click', toggleTheme);
             }
             
-            // 初始化背景音乐控制
-            initMusicControl();
-            
             // 初始化朝鲜国旗按钮
             initKoreaToggle();
             
-            // 加载GitHub仓库信息
+            // 加载 GitHub 仓库信息
             loadGitHubRepos();
         });
-        
-        // 初始化背景音乐控制
-        function initMusicControl() {
-            const musicToggle = document.getElementById('music-toggle');
-            const backgroundMusic = document.getElementById('background-music');
-            const musicIcon = musicToggle.querySelector('.music-icon');
-            
-            if (!musicToggle || !backgroundMusic || !musicIcon) return;
-            
-            // 绑定音乐切换事件
-            musicToggle.addEventListener('click', function() {
-                if (backgroundMusic.paused) {
-                    // 播放音乐
-                    backgroundMusic.play().catch(error => {
-                        console.error('播放音乐失败:', error);
-                    });
-                    musicIcon.textContent = '🔊';
-                    musicToggle.title = '暂停背景音乐';
-                } else {
-                    // 暂停音乐
-                    backgroundMusic.pause();
-                    musicIcon.textContent = '🔇';
-                    musicToggle.title = '播放背景音乐';
-                }
-            });
-        }
         
         // 初始化朝鲜国旗按钮
         function initKoreaToggle() {
@@ -753,16 +714,7 @@
                     nameElement.textContent = '太阳';
                 }
                 
-                // 4. 切换背景音乐并自动播放
-                const backgroundMusic = document.getElementById('background-music');
-                if (backgroundMusic) {
-                    backgroundMusic.src = 'music/w.mp3';
-                    backgroundMusic.play().catch(error => {
-                        console.error('播放音乐失败:', error);
-                    });
-                }
-                
-                // 5. 播放弹幕
+                // 4. 播放弹幕
                 playDanmaku();
             });
         }
@@ -1600,6 +1552,48 @@
                 requestAnimationFrame(() => this.animate());
             }
         }
+        
+        // 鼠标尾迹效果
+        let lastTrailTime = 0;
+        const trailInterval = 50; // 尾迹生成间隔（毫秒）
+        
+        document.addEventListener('mousemove', function(e) {
+            const currentTime = Date.now();
+            
+            // 限制尾迹生成频率
+            if (currentTime - lastTrailTime < trailInterval) {
+                return;
+            }
+            
+            lastTrailTime = currentTime;
+            
+            // 创建尾迹粒子
+            const trail = document.createElement('div');
+            trail.className = 'mouse-trail';
+            
+            // 随机选择尾迹颜色
+            if (Math.random() > 0.8) {
+                trail.classList.add('sparkle');
+            }
+            
+            // 设置尾迹位置
+            trail.style.left = (e.clientX - 5) + 'px';
+            trail.style.top = (e.clientY - 5) + 'px';
+            
+            // 添加随机大小变化
+            const size = Math.random() * 6 + 6;
+            trail.style.width = size + 'px';
+            trail.style.height = size + 'px';
+            
+            document.body.appendChild(trail);
+            
+            // 动画结束后移除尾迹
+            setTimeout(() => {
+                if (trail.parentNode) {
+                    trail.parentNode.removeChild(trail);
+                }
+            }, 1000);
+        });
         
         // 彩蛋系统 - 键盘序列检测
         let easterEggSequence = [];

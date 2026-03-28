@@ -287,6 +287,35 @@ body.theme-transitioning::before {
     }
 }
 
+/* 鼠标尾迹效果 */
+.mouse-trail {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8));
+    pointer-events: none;
+    z-index: 9999;
+    box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+    animation: trail-fade 1s ease-out forwards;
+}
+
+.mouse-trail.sparkle {
+    background: radial-gradient(circle, rgba(255, 107, 157, 0.8), rgba(196, 77, 255, 0.8));
+    box-shadow: 0 0 15px rgba(255, 107, 157, 0.6);
+}
+
+@keyframes trail-fade {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+}
+
 /* 深色模式基础样式 */
 body.dark-mode {
     color: #e0e0e0;
