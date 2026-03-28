@@ -21,11 +21,10 @@
                 <div class="code-line">blog.startServer();</div>
             </div>
             <div class="loading-progress">
-                <div class="progress-dots">
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="loading-progress-bar"></div>
                 </div>
+                <div class="progress-text" id="loading-progress-text">0%</div>
             </div>
         </div>
     </div>
@@ -1002,6 +1001,110 @@
             }
         }
         
+        // 鼠标点击特效 - 烟花效果
+        function createClickFirework(x, y) {
+            const colors = ['#ff6b9d', '#c44dff', '#4facfe', '#00f2fe', '#43e97b', '#fa709a', '#fee140'];
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                const angle = (Math.PI * 2 * i) / particleCount;
+                const velocity = Math.random() * 80 + 40;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                particle.style.cssText = `
+                    position: fixed;
+                    left: ${x}px;
+                    top: ${y}px;
+                    width: ${Math.random() * 6 + 4}px;
+                    height: ${Math.random() * 6 + 4}px;
+                    background: ${color};
+                    border-radius: 50%;
+                    pointer-events: none;
+                    z-index: 99999;
+                    box-shadow: 0 0 10px ${color};
+                `;
+                
+                document.body.appendChild(particle);
+                
+                const vx = Math.cos(angle) * velocity;
+                const vy = Math.sin(angle) * velocity;
+                
+                let posX = x;
+                let posY = y;
+                let opacity = 1;
+                let gravity = 0.5;
+                
+                const animate = () => {
+                    posX += vx * 0.016;
+                    posY += vy * 0.016;
+                    vy += gravity;
+                    opacity -= 0.02;
+                    
+                    particle.style.left = posX + 'px';
+                    particle.style.top = posY + 'px';
+                    particle.style.opacity = opacity;
+                    
+                    if (opacity > 0) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        particle.remove();
+                    }
+                };
+                
+                requestAnimationFrame(animate);
+            }
+        }
+        
+        // 鼠标点击特效 - 爱心效果
+        function createClickHeart(x, y) {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.style.cssText = `
+                position: fixed;
+                left: ${x}px;
+                top: ${y}px;
+                font-size: ${Math.random() * 20 + 20}px;
+                pointer-events: none;
+                z-index: 99999;
+                animation: heart-float 2s ease-out forwards;
+            `;
+            document.body.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 2000);
+        }
+        
+        // 鼠标点击特效 - 星星效果
+        function createClickStar(x, y) {
+            const star = document.createElement('div');
+            star.innerHTML = '⭐';
+            star.style.cssText = `
+                position: fixed;
+                left: ${x}px;
+                top: ${y}px;
+                font-size: ${Math.random() * 20 + 15}px;
+                pointer-events: none;
+                z-index: 99999;
+                animation: star-spin 1.5s ease-out forwards;
+            `;
+            document.body.appendChild(star);
+            
+            setTimeout(() => star.remove(), 1500);
+        }
+        
+        // 随机点击特效
+        let clickEffectIndex = 0;
+        const clickEffects = [createClickFirework, createClickHeart, createClickStar];
+        
+        document.addEventListener('click', function(e) {
+            // 排除按钮和链接
+            if (e.target.tagName !== 'A' && e.target.tagName !== 'BUTTON') {
+                const effect = clickEffects[clickEffectIndex % clickEffects.length];
+                effect(e.clientX, e.clientY);
+                clickEffectIndex++;
+            }
+        });
+        
         // 显示专注指示器
         function showFocusIndicator() {
             let indicator = document.getElementById('focus-indicator');
@@ -1629,6 +1732,67 @@
             
             // 检查是否是重复访客
             checkReturningVisitor();
+        }
+        
+        // 打字机效果欢迎语
+        function initTypewriterWelcome() {
+            const welcomeText = '欢迎来到白夜的博客！🎉';
+            const welcomeElement = document.querySelector('.name');
+            if (!welcomeElement) return;
+            
+            let index = 0;
+            const originalText = welcomeElement.textContent;
+            welcomeElement.textContent = '';
+            
+            const typeWriter = () => {
+                if (index < welcomeText.length) {
+                    welcomeElement.textContent += welcomeText.charAt(index);
+                    index++;
+                    setTimeout(typeWriter, 100);
+                } else {
+                    // 恢复原文本
+                    setTimeout(() => {
+                        welcomeElement.textContent = originalText;
+                    }, 3000);
+                }
+            };
+            
+            setTimeout(typeWriter, 1000);
+        }
+        
+        // 动态时间问候
+        function initDynamicGreeting() {
+            const hour = new Date().getHours();
+            let greeting = '';
+            
+            if (hour >= 5 && hour < 12) {
+                greeting = '早上好！☀️';
+            } else if (hour >= 12 && hour < 14) {
+                greeting = '中午好！🍚';
+            } else if (hour >= 14 && hour < 18) {
+                greeting = '下午好！☕';
+            } else if (hour >= 18 && hour < 23) {
+                greeting = '晚上好！🌙';
+            } else {
+                greeting = '夜深了，早点休息！😴';
+            }
+            
+            console.log(greeting);
+        }
+        
+        // 访客统计
+        function initVisitorStats() {
+            const visitCount = parseInt(localStorage.getItem('visit-count') || '0');
+            const totalTime = parseInt(localStorage.getItem('visit-time') || '0');
+            
+            // 更新访问时间
+            const startTime = Date.now();
+            setInterval(() => {
+                const elapsed = Math.floor((Date.now() - startTime) / 1000);
+                localStorage.setItem('visit-time', (totalTime + elapsed).toString());
+            }, 10000);
+            
+            console.log(`📊 访问统计：第 ${visitCount + 1} 次访问`);
         }
         
         // 监听主题切换事件，重新初始化图表
