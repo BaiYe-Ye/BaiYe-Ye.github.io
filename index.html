@@ -1274,12 +1274,12 @@
                 document.body.appendChild(particle);
                 
                 const vx = Math.cos(angle) * velocity;
-                const vy = Math.sin(angle) * velocity;
+                let vy = Math.sin(angle) * velocity;
                 
                 let posX = x;
                 let posY = y;
                 let opacity = 1;
-                let gravity = 0.5;
+                const gravity = 0.5;
                 
                 const animate = () => {
                     posX += vx * 0.016;
