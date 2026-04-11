@@ -112,6 +112,39 @@
                 </div>
                 <div class="card-content">
                     <!-- 博客文章列表 -->
+                    
+                    <!-- 热点新闻模块 -->
+                    <div class="news-section glass-effect">
+                        <h3 class="card-title">🔥 热点新闻</h3>
+                        <div class="news-container" id="hot-news-container">
+                            <!-- 新闻内容将通过 JavaScript 动态加载 -->
+                            <div class="news-loading">正在加载热点新闻...</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 视频展示模块 -->
+                    <div class="video-section glass-effect">
+                        <h3 class="card-title">🎬 精彩视频</h3>
+                        <div class="video-container" id="video-container">
+                            <div class="video-item">
+                                <div class="video-placeholder">
+                                    <span class="video-icon">🎥</span>
+                                    <p>精彩视频即将上线</p>
+                                    <p class="video-hint">支持嵌入 B 站等平台视频</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 赛事信息模块 -->
+                    <div class="sports-section glass-effect">
+                        <h3 class="card-title">⚽ 赛事速递</h3>
+                        <div class="sports-container" id="sports-container">
+                            <!-- 赛事内容将通过 JavaScript 动态加载 -->
+                            <div class="sports-loading">正在加载赛事信息...</div>
+                        </div>
+                    </div>
+                    
                     <div class="blog-posts">
                         <!-- 示例文章1 -->
                                                 <!-- 文章 -->
@@ -765,37 +798,19 @@
             }
         }
         
-        // 主题系统 - 支持多种预设主题
+        // 主题系统 - 只保留日览和夜览
         const themes = {
             'light': {
-                name: '浅色模式',
+                name: '日览',
                 icon: '🌙',
                 class: '',
-                description: '清新明亮的浅色主题'
+                description: '清新明亮的日间主题'
             },
             'dark': {
-                name: '深色模式',
+                name: '夜览',
                 icon: '☀️',
                 class: 'dark-mode',
-                description: '护眼舒适的深色主题'
-            },
-            'work': {
-                name: '工作模式',
-                icon: '💼',
-                class: 'work-mode',
-                description: '专注高效的工作主题'
-            },
-            'reading': {
-                name: '阅读模式',
-                icon: '📖',
-                class: 'reading-mode',
-                description: '护眼舒适的阅读主题'
-            },
-            'creative': {
-                name: '创意模式',
-                icon: '🎨',
-                class: 'creative-mode',
-                description: '激发灵感的创意主题'
+                description: '柔和舒适的夜间主题'
             }
         };
         
@@ -803,17 +818,18 @@
         function initTheme() {
             const savedTheme = localStorage.getItem('theme') || 'light';
             
-            // 应用主题
-            applyTheme(savedTheme);
+            // 确保只使用 light 或 dark
+            if (savedTheme !== 'light' && savedTheme !== 'dark') {
+                applyTheme('light');
+            } else {
+                applyTheme(savedTheme);
+            }
         }
         
         // 切换主题
         function toggleTheme() {
             const currentTheme = localStorage.getItem('theme') || 'light';
-            const themeKeys = Object.keys(themes);
-            const currentIndex = themeKeys.indexOf(currentTheme);
-            const nextIndex = (currentIndex + 1) % themeKeys.length;
-            const nextTheme = themeKeys[nextIndex];
+            const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
             
             // 添加切换动画类
             document.body.classList.add('theme-transitioning');
@@ -825,7 +841,7 @@
                 // 移除切换动画类
                 setTimeout(() => {
                     document.body.classList.remove('theme-transitioning');
-                }, 500);
+                }, 600);
             }, 100);
         }
         
@@ -839,7 +855,7 @@
             body.classList.add('theme-changing');
             
             // 移除所有主题class
-            body.className = body.className.replace(/(?:^|\s)(dark|work|reading|creative)-mode(?!\S)/g, '').trim();
+            body.className = body.className.replace(/(?:^|\s)(dark)-mode(?!\S)/g, '').trim();
             
             // 添加当前主题class
             const theme = themes[themeName];
@@ -877,51 +893,20 @@
                 case 'dark':
                     applyDarkModeEffects();
                     break;
-                case 'work':
-                    applyWorkModeEffects();
-                    break;
-                case 'reading':
-                    applyReadingModeEffects();
-                    break;
-                case 'creative':
-                    applyCreativeModeEffects();
-                    break;
             }
         }
         
-        // 浅色模式特效
+        // 日览模式特效
         function applyLightModeEffects() {
-            // 重置所有特殊效果
-            const particles = document.querySelectorAll('.theme-particle');
+            // 移除星空粒子
+            const particles = document.querySelectorAll('.star-particle');
             particles.forEach(p => p.remove());
         }
         
-        // 深色模式特效
+        // 夜览模式特效
         function applyDarkModeEffects() {
             // 添加星空背景粒子
             createStarParticles();
-        }
-        
-        // 工作模式特效
-        function applyWorkModeEffects() {
-            // 添加专注模式指示器
-            showFocusIndicator();
-        }
-        
-        // 阅读模式特效
-        function applyReadingModeEffects() {
-            // 优化字体和行距
-            const content = document.querySelectorAll('.post-content, .intro-text');
-            content.forEach(el => {
-                el.style.lineHeight = '1.8';
-                el.style.fontSize = '1.05rem';
-            });
-        }
-        
-        // 创意模式特效
-        function applyCreativeModeEffects() {
-            // 添加彩虹光晕效果
-            createRainbowGlow();
         }
         
         // 创建星空粒子
@@ -929,7 +914,7 @@
             const container = document.getElementById('particles-container');
             if (!container) return;
             
-            // 清除现有主题粒子
+            // 清除现有星空粒子
             const existingStars = container.querySelectorAll('.star-particle');
             existingStars.forEach(s => s.remove());
             
@@ -1789,6 +1774,213 @@
             console.log(`📊 访问统计：第 ${visitCount + 1} 次访问`);
         }
         
+        // 热点新闻功能
+        function loadHotNews() {
+            const newsContainer = document.getElementById('hot-news-container');
+            if (!newsContainer) return;
+            
+            // 模拟新闻数据（实际应用中可以调用新闻 API）
+            const mockNews = [
+                {
+                    title: '2026 年科技发展趋势展望',
+                    source: '科技日报',
+                    time: '2 小时前',
+                    summary: '人工智能、量子计算、生物技术将成为 2026 年科技发展的三大核心驱动力...'
+                },
+                {
+                    title: '全球气候变化峰会达成新协议',
+                    source: '新华网',
+                    time: '3 小时前',
+                    summary: '各国承诺到 2030 年减少碳排放 50%，共同应对气候变化挑战...'
+                },
+                {
+                    title: '新能源汽车销量再创新高',
+                    source: '财经网',
+                    time: '5 小时前',
+                    summary: '2025 年全球新能源汽车销量突破 2000 万辆，中国市场占比超过 60%...'
+                },
+                {
+                    title: '太空探索迎来新里程碑',
+                    source: '央视新闻',
+                    time: '8 小时前',
+                    summary: '多国联合火星探测任务成功着陆，开始传回科学数据...'
+                },
+                {
+                    title: '5G 网络覆盖率达到新高度',
+                    source: '人民邮电报',
+                    time: '12 小时前',
+                    summary: '全国 5G 基站数量突破 300 万，实现所有地级市全覆盖...'
+                }
+            ];
+            
+            let newsHTML = '';
+            mockNews.forEach((news, index) => {
+                newsHTML += `
+                    <div class="news-item" onclick="expandNews(${index})">
+                        <div class="news-header">
+                            <span class="news-source">${news.source}</span>
+                            <span class="news-time">${news.time}</span>
+                        </div>
+                        <h4 class="news-title">${news.title}</h4>
+                        <p class="news-summary" id="news-summary-${index}">${news.summary}</p>
+                        <div class="news-expand" id="news-expand-${index}" style="display: none;">
+                            <p>这里是新闻的详细内容。在实际应用中，可以链接到完整的新闻页面或调用新闻 API 获取详细内容。</p>
+                        </div>
+                        <div class="news-footer">
+                            <span class="news-action">👍 点赞</span>
+                            <span class="news-action">💬 评论</span>
+                            <span class="news-action">🔗 分享</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            newsContainer.innerHTML = newsHTML;
+        }
+        
+        // 展开新闻详情
+        function expandNews(index) {
+            const summary = document.getElementById(`news-summary-${index}`);
+            const expand = document.getElementById(`news-expand-${index}`);
+            
+            if (expand.style.display === 'none') {
+                expand.style.display = 'block';
+                summary.style.display = 'none';
+            } else {
+                expand.style.display = 'none';
+                summary.style.display = 'block';
+            }
+        }
+        
+        // 视频展示功能
+        function loadVideos() {
+            const videoContainer = document.getElementById('video-container');
+            if (!videoContainer) return;
+            
+            // 示例视频列表（可以替换为实际的嵌入代码）
+            const videos = [
+                {
+                    title: '精彩编程教程',
+                    platform: 'B 站',
+                    views: '10.5 万',
+                    placeholder: '📹'
+                },
+                {
+                    title: '科技前沿解读',
+                    platform: 'B 站',
+                    views: '8.2 万',
+                    placeholder: '🎬'
+                },
+                {
+                    title: '产品评测分享',
+                    platform: 'B 站',
+                    views: '15.3 万',
+                    placeholder: '📺'
+                }
+            ];
+            
+            let videoHTML = '';
+            videos.forEach(video => {
+                videoHTML += `
+                    <div class="video-item">
+                        <div class="video-thumbnail">
+                            <span class="video-placeholder-icon">${video.placeholder}</span>
+                            <div class="video-overlay">
+                                <span class="play-button">▶️</span>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <h4 class="video-title">${video.title}</h4>
+                            <div class="video-meta">
+                                <span class="video-platform">${video.platform}</span>
+                                <span class="video-views">${video.views}次观看</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            videoContainer.innerHTML = videoHTML;
+        }
+        
+        // 赛事信息功能
+        function loadSportsNews() {
+            const sportsContainer = document.getElementById('sports-container');
+            if (!sportsContainer) return;
+            
+            // 模拟赛事数据
+            const sportsEvents = [
+                {
+                    sport: '⚽ 足球',
+                    league: '英超联赛',
+                    homeTeam: '曼联',
+                    awayTeam: '利物浦',
+                    score: '2 - 1',
+                    status: '已结束',
+                    time: '2026-01-24 22:00'
+                },
+                {
+                    sport: '🏀 篮球',
+                    league: 'NBA',
+                    homeTeam: '湖人',
+                    awayTeam: '勇士',
+                    score: '112 - 108',
+                    status: '已结束',
+                    time: '2026-01-24 10:30'
+                },
+                {
+                    sport: '🎾 网球',
+                    league: '澳网公开赛',
+                    homeTeam: '德约科维奇',
+                    awayTeam: '阿尔卡拉斯',
+                    score: '3 - 2',
+                    status: '进行中',
+                    time: '2026-01-25 09:00'
+                },
+                {
+                    sport: '⚽ 足球',
+                    league: '西甲联赛',
+                    homeTeam: '皇马',
+                    awayTeam: '巴萨',
+                    score: 'VS',
+                    status: '未开始',
+                    time: '2026-01-25 23:00'
+                }
+            ];
+            
+            let sportsHTML = '';
+            sportsEvents.forEach(event => {
+                const statusClass = event.status === '已结束' ? 'status-finished' : 
+                                   event.status === '进行中' ? 'status-live' : 'status-upcoming';
+                
+                sportsHTML += `
+                    <div class="sports-item">
+                        <div class="sports-header">
+                            <span class="sport-type">${event.sport}</span>
+                            <span class="league-name">${event.league}</span>
+                        </div>
+                        <div class="sports-match">
+                            <div class="team home-team">
+                                <span class="team-name">${event.homeTeam}</span>
+                            </div>
+                            <div class="score-board">
+                                <span class="score ${statusClass}">${event.score}</span>
+                                <span class="match-status ${statusClass}">${event.status}</span>
+                            </div>
+                            <div class="team away-team">
+                                <span class="team-name">${event.awayTeam}</span>
+                            </div>
+                        </div>
+                        <div class="sports-footer">
+                            <span class="match-time">${event.time}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            sportsContainer.innerHTML = sportsHTML;
+        }
+        
         // 监听主题切换事件，重新初始化图表
         document.addEventListener('DOMContentLoaded', function() {
             const themeToggle = document.getElementById('theme-toggle');
@@ -1807,6 +1999,15 @@
             
             // 恢复阅读进度
             restoreReadingProgress();
+            
+            // 加载热点新闻
+            loadHotNews();
+            
+            // 加载视频列表
+            loadVideos();
+            
+            // 加载赛事信息
+            loadSportsNews();
         });
     </script>
 </body>
