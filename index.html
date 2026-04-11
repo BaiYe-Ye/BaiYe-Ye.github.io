@@ -40,6 +40,10 @@
     
     <!-- 深色模式切换按钮 -->
     <div class="theme-toggle-container">
+        <button id="language-toggle" class="language-toggle-btn" title="切换语言">
+            <span class="language-icon">🌐</span>
+        </button>
+        
         <button id="theme-toggle" class="theme-toggle-btn" title="切换深色/浅色模式">
             <span class="toggle-icon">🌙</span>
         </button>
@@ -111,6 +115,29 @@
                     <h3 class="card-title">我的博文</h3>
                 </div>
                 <div class="card-content">
+                    <!-- 访客统计模块 -->
+                    <div class="visitor-stats glass-effect">
+                        <h3 class="card-title">📊 博客统计</h3>
+                        <div class="stats-overview">
+                            <div class="stat-item">
+                                <span class="stat-number" id="total-visits">0</span>
+                                <span class="stat-label">总访问次数</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" id="today-visits">0</span>
+                                <span class="stat-label">今日访问</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" id="total-visitors">0</span>
+                                <span class="stat-label">访客数</span>
+                            </div>
+                        </div>
+                        <div class="stats-chart">
+                            <h4 class="chart-title">📈 访问趋势（最近7天）</h4>
+                            <canvas id="visit-chart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                    
                     <!-- 博客文章列表 -->
                     
                     <!-- 热点新闻模块 -->
@@ -317,6 +344,285 @@
     <!-- 背景音乐 -->
     <!-- JavaScript -->
     <script>
+        // 多语言系统
+        const translations = {
+            'zh-CN': {
+                name: '白夜',
+                title: '全栈开发者',
+                githubBtn: '访问我的GitHub',
+                githubRepos: 'GitHub仓库',
+                activityChart: '活动图表',
+                hotNews: '热点新闻',
+                videos: '精彩视频',
+                sports: '赛事速递',
+                myBlog: '我的博文',
+                personalIntro: '个人介绍',
+                quickNav: {
+                    intro: '个人介绍',
+                    blog: '我的博文',
+                    github: 'GitHub'
+                },
+                stats: {
+                    repos: '仓库',
+                    followers: '粉丝',
+                    following: '关注'
+                },
+                footer: '白夜的小窝. 保留所有权利.',
+                easterEgg: '彩蛋提示：尝试输入特定序列...',
+                easterEggTitle: '🎉 恭喜你发现了隐藏彩蛋！',
+                easterEggText: '你是一个细心的访客，这是给你的惊喜奖励！',
+                closeBtn: '关闭',
+                loading: '正在加载...',
+                readMore: '阅读更多',
+                techStack: '技术栈',
+                recentActivity: '近期活动'
+            },
+            'zh-TW': {
+                name: '白夜',
+                title: '全端開發者',
+                githubBtn: '訪問我的GitHub',
+                githubRepos: 'GitHub倉庫',
+                activityChart: '活動圖表',
+                hotNews: '熱點新聞',
+                videos: '精彩視頻',
+                sports: '賽事速遞',
+                myBlog: '我的博文',
+                personalIntro: '個人介紹',
+                quickNav: {
+                    intro: '個人介紹',
+                    blog: '我的博文',
+                    github: 'GitHub'
+                },
+                stats: {
+                    repos: '倉庫',
+                    followers: '粉絲',
+                    following: '關注'
+                },
+                footer: '白夜的小窩. 保留所有權利.',
+                easterEgg: '彩蛋提示：嘗試輸入特定序列...',
+                easterEggTitle: '🎉 恭喜你發現了隱藏彩蛋！',
+                easterEggText: '你是壹個細心的訪客，這是給你的驚喜獎勵！',
+                closeBtn: '關閉',
+                loading: '正在載入...',
+                readMore: '閱讀更多',
+                techStack: '技術棧',
+                recentActivity: '近期活動'
+            },
+            'en': {
+                name: 'Bai Ye',
+                title: 'Full-stack Developer',
+                githubBtn: 'Visit My GitHub',
+                githubRepos: 'GitHub Repositories',
+                activityChart: 'Activity Chart',
+                hotNews: 'Hot News',
+                videos: 'Featured Videos',
+                sports: 'Sports Update',
+                myBlog: 'My Blog',
+                personalIntro: 'Personal Introduction',
+                quickNav: {
+                    intro: 'Introduction',
+                    blog: 'My Blog',
+                    github: 'GitHub'
+                },
+                stats: {
+                    repos: 'Repos',
+                    followers: 'Followers',
+                    following: 'Following'
+                },
+                footer: "Bai Ye's Blog. All rights reserved.",
+                easterEgg: '🎉 Easter Egg: Try inputting a secret sequence...',
+                easterEggTitle: '🎉 Congratulations! You found the Easter Egg!',
+                easterEggText: "You're a careful visitor! Here's a surprise for you!",
+                closeBtn: 'Close',
+                loading: 'Loading...',
+                readMore: 'Read More',
+                techStack: 'Tech Stack',
+                recentActivity: 'Recent Activity'
+            },
+            'ja': {
+                name: '白夜',
+                title: 'フルスタック開発者',
+                githubBtn: '私のGitHubを見る',
+                githubRepos: 'GitHubリポジトリ',
+                activityChart: 'アクティビティチャート',
+                hotNews: 'ホットニュース',
+                videos: '注目動画',
+                sports: 'スポーツ情報',
+                myBlog: '私のブログ',
+                personalIntro: '自己紹介',
+                quickNav: {
+                    intro: '自己紹介',
+                    blog: '私のブログ',
+                    github: 'GitHub'
+                },
+                stats: {
+                    repos: 'リポジトリ',
+                    followers: 'フォロワー',
+                    following: 'フォロー'
+                },
+                footer: '白夜のブログ. 全著作権所有.',
+                easterEgg: '🎉 イースターエッグ：秘密のシーケンスを入力してみてください...',
+                easterEggTitle: '🎉 おめでとうございます！イースターエッグを見つけました！',
+                easterEggText: 'あなたは внимательный 訪問者です！サプライズを用意しました！',
+                closeBtn: '閉じる',
+                loading: '読み込み中...',
+                readMore: 'もっと見る',
+                techStack: '技術スタック',
+                recentActivity: '最近のアクティビティ'
+            },
+            'ko': {
+                name: '백야',
+                title: '풀스택 개발자',
+                githubBtn: '내 GitHub 방문하기',
+                githubRepos: 'GitHub 저장소',
+                activityChart: '활동 차트',
+                hotNews: '핫 뉴스',
+                videos: '주목할 만한 영상',
+                sports: '스포츠 소식',
+                myBlog: '내 블로그',
+                personalIntro: '자기소개',
+                quickNav: {
+                    intro: '자기소개',
+                    blog: '내 블로그',
+                    github: 'GitHub'
+                },
+                stats: {
+                    repos: '저장소',
+                    followers: '팔로워',
+                    following: '팔로잉'
+                },
+                footer: '백야의 블로그. 모든 권리 보유.',
+                easterEgg: '🎉 이스터에그: 비밀 시퀀스를 입력해보세요...',
+                easterEggTitle: '🎉 축하합니다! 이스터에그를 발견했습니다!',
+                easterEggText: '당신은細な访问자입니다! 당신을 위한surprise를 준비했습니다!',
+                closeBtn: '닫기',
+                loading: '로딩 중...',
+                readMore: '더 읽기',
+                techStack: '기술 스택',
+                recentActivity: '최근 활동'
+            }
+        };
+        
+        // 当前语言
+        let currentLanguage = localStorage.getItem('language') || 'zh-CN';
+        
+        // 语言列表
+        const languages = ['zh-CN', 'zh-TW', 'en', 'ja', 'ko'];
+        const languageNames = {
+            'zh-CN': '简体中文',
+            'zh-TW': '繁體中文',
+            'en': 'English',
+            'ja': '日本語',
+            'ko': '한국어'
+        };
+        
+        // 切换语言
+        function toggleLanguage() {
+            const currentIndex = languages.indexOf(currentLanguage);
+            const nextIndex = (currentIndex + 1) % languages.length;
+            currentLanguage = languages[nextIndex];
+            localStorage.setItem('language', currentLanguage);
+            applyLanguage();
+        }
+        
+        // 应用语言
+        function applyLanguage() {
+            const t = translations[currentLanguage];
+            if (!t) return;
+            
+            // 更新名称
+            const nameEl = document.querySelector('.name');
+            if (nameEl) nameEl.textContent = t.name;
+            
+            const titleEl = document.querySelector('.title');
+            if (titleEl) titleEl.textContent = t.title;
+            
+            const githubBtn = document.querySelector('.github-btn');
+            if (githubBtn) githubBtn.textContent = t.githubBtn;
+            
+            // 更新卡片标题
+            const cards = document.querySelectorAll('.card-title');
+            if (cards[0]) cards[0].textContent = t.githubRepos;
+            if (cards[1]) cards[1].textContent = t.activityChart;
+            
+            // 更新热点新闻标题
+            const newsTitle = document.querySelector('.news-section .card-title');
+            if (newsTitle) newsTitle.textContent = t.hotNews;
+            
+            // 更新视频标题
+            const videoTitle = document.querySelector('.video-section .card-title');
+            if (videoTitle) videoTitle.textContent = t.videos;
+            
+            // 更新赛事标题
+            const sportsTitle = document.querySelector('.sports-section .card-title');
+            if (sportsTitle) sportsTitle.textContent = t.sports;
+            
+            // 更新博文标题
+            const blogTitle = document.querySelector('.blog-card .card-title');
+            if (blogTitle) blogTitle.textContent = t.myBlog;
+            
+            // 更新快捷导航
+            const quickNavLinks = document.querySelectorAll('.quick-nav-link');
+            if (quickNavLinks[0]) quickNavLinks[0].textContent = t.quickNav.intro;
+            if (quickNavLinks[1]) quickNavLinks[1].textContent = t.quickNav.blog;
+            if (quickNavLinks[2]) quickNavLinks[2].textContent = t.quickNav.github;
+            
+            // 更新统计标签
+            const statLabels = document.querySelectorAll('.stat-label');
+            if (statLabels[0]) statLabels[0].textContent = t.stats.repos;
+            if (statLabels[1]) statLabels[1].textContent = t.stats.followers;
+            if (statLabels[2]) statLabels[2].textContent = t.stats.following;
+            
+            // 更新页脚
+            const footer = document.querySelector('.footer p');
+            if (footer) footer.textContent = t.footer;
+            
+            const easterEggHint = document.querySelector('.footer-easter-egg');
+            if (easterEggHint) easterEggHint.textContent = t.easterEgg;
+            
+            // 更新彩蛋内容
+            const easterEggTitle = document.querySelector('.easter-egg-content h2');
+            if (easterEggTitle) easterEggTitle.textContent = t.easterEggTitle;
+            
+            const easterEggText = document.querySelector('.easter-egg-content p');
+            if (easterEggText) easterEggText.textContent = t.easterEggText;
+            
+            const closeBtn = document.getElementById('close-easter-egg');
+            if (closeBtn) closeBtn.textContent = t.closeBtn;
+            
+            // 更新阅读更多按钮
+            const readMoreBtns = document.querySelectorAll('.read-more');
+            readMoreBtns.forEach(btn => {
+                if (btn.textContent.includes('阅读') || btn.textContent.includes('Read')) {
+                    btn.textContent = t.readMore;
+                }
+            });
+            
+            // 更新语言切换按钮提示
+            const langBtn = document.getElementById('language-toggle');
+            if (langBtn) {
+                langBtn.title = languageNames[currentLanguage];
+            }
+        }
+        
+        // 初始化语言
+        function initLanguage() {
+            // 从localStorage恢复语言设置
+            const savedLang = localStorage.getItem('language');
+            if (savedLang && translations[savedLang]) {
+                currentLanguage = savedLang;
+            }
+            
+            // 应用语言
+            applyLanguage();
+            
+            // 绑定语言切换事件
+            const langToggle = document.getElementById('language-toggle');
+            if (langToggle) {
+                langToggle.addEventListener('click', toggleLanguage);
+            }
+        }
+        
         // 色彩魔法 - 随时间变化的动态配色
         function applyTimeBasedColors() {
             const now = new Date();
@@ -693,6 +999,9 @@
         
         // 深色/浅色模式切换功能
         document.addEventListener('DOMContentLoaded', function() {
+            // 初始化语言系统
+            initLanguage();
+            
             // 初始化主题
             initTheme();
             
@@ -1759,19 +2068,198 @@
             console.log(greeting);
         }
         
-        // 访客统计
+        // 访客统计系统
         function initVisitorStats() {
-            const visitCount = parseInt(localStorage.getItem('visit-count') || '0');
-            const totalTime = parseInt(localStorage.getItem('visit-time') || '0');
+            // 获取或初始化统计数据
+            let stats = JSON.parse(localStorage.getItem('blog-stats') || JSON.stringify({
+                totalVisits: 0,
+                totalVisitors: 0,
+                todayVisits: 0,
+                lastVisitDate: null,
+                dailyVisits: [],
+                visitorIds: []
+            }));
             
-            // 更新访问时间
-            const startTime = Date.now();
-            setInterval(() => {
-                const elapsed = Math.floor((Date.now() - startTime) / 1000);
-                localStorage.setItem('visit-time', (totalTime + elapsed).toString());
-            }, 10000);
+            const today = new Date().toDateString();
+            const visitorId = getVisitorId();
             
-            console.log(`📊 访问统计：第 ${visitCount + 1} 次访问`);
+            // 检查是否是今天第一次访问
+            if (stats.lastVisitDate !== today) {
+                stats.todayVisits = 0;
+                stats.lastVisitDate = today;
+            }
+            
+            // 更新统计数据
+            stats.totalVisits++;
+            stats.todayVisits++;
+            
+            // 添加新的日访问记录
+            const todayIndex = stats.dailyVisits.findIndex(d => d.date === today);
+            if (todayIndex >= 0) {
+                stats.dailyVisits[todayIndex].visits++;
+            } else {
+                // 保留最近7天的数据
+                if (stats.dailyVisits.length >= 7) {
+                    stats.dailyVisits.shift();
+                }
+                stats.dailyVisits.push({ date: today, visits: 1 });
+            }
+            
+            // 检查是否是新访客
+            if (!stats.visitorIds.includes(visitorId)) {
+                stats.visitorIds.push(visitorId);
+                stats.totalVisitors++;
+            }
+            
+            // 保存到 localStorage
+            localStorage.setItem('blog-stats', JSON.stringify(stats));
+            
+            // 更新界面显示
+            updateStatsDisplay(stats);
+            
+            // 绘制访问趋势图
+            setTimeout(() => {
+                drawVisitChart(stats.dailyVisits);
+            }, 500);
+            
+            console.log(`📊 博客统计 - 总访问: ${stats.totalVisits}, 今日: ${stats.todayVisits}, 访客: ${stats.totalVisitors}`);
+        }
+        
+        // 获取访客唯一ID
+        function getVisitorId() {
+            let visitorId = localStorage.getItem('visitor-id');
+            if (!visitorId) {
+                visitorId = 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('visitor-id', visitorId);
+            }
+            return visitorId;
+        }
+        
+        // 更新统计显示
+        function updateStatsDisplay(stats) {
+            const totalVisitsEl = document.getElementById('total-visits');
+            const todayVisitsEl = document.getElementById('today-visits');
+            const totalVisitorsEl = document.getElementById('total-visitors');
+            
+            if (totalVisitsEl) totalVisitsEl.textContent = stats.totalVisits;
+            if (todayVisitsEl) todayVisitsEl.textContent = stats.todayVisits;
+            if (totalVisitorsEl) totalVisitorsEl.textContent = stats.totalVisitors;
+        }
+        
+        // 绘制访问趋势曲线图
+        function drawVisitChart(dailyVisits) {
+            const canvas = document.getElementById('visit-chart');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+            
+            // 清除画布
+            ctx.clearRect(0, 0, width, height);
+            
+            // 获取数据
+            const data = dailyVisits.slice(-7);
+            if (data.length === 0) {
+                ctx.fillStyle = '#888';
+                ctx.font = '14px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('暂无数据', width / 2, height / 2);
+                return;
+            }
+            
+            // 填充数据到7天
+            const labels = [];
+            const values = [];
+            const today = new Date();
+            
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toDateString();
+                labels.push(`${date.getMonth() + 1}/${date.getDate()}`);
+                
+                const dayData = data.find(d => d.date === dateStr);
+                values.push(dayData ? dayData.visits : 0);
+            }
+            
+            // 计算最大值用于缩放
+            const maxValue = Math.max(...values, 1);
+            
+            // 绘制网格
+            ctx.strokeStyle = '#e0e0e0';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i <= 4; i++) {
+                const y = height - (height / 4) * i;
+                ctx.beginPath();
+                ctx.moveTo(40, y);
+                ctx.lineTo(width - 20, y);
+                ctx.stroke();
+                
+                // 绘制Y轴标签
+                ctx.fillStyle = '#888';
+                ctx.font = '10px Arial';
+                ctx.textAlign = 'right';
+                ctx.fillText(Math.floor(maxValue * i / 4), 35, y + 3);
+            }
+            
+            // 绘制X轴标签
+            ctx.fillStyle = '#666';
+            ctx.font = '11px Arial';
+            ctx.textAlign = 'center';
+            labels.forEach((label, i) => {
+                const x = 50 + (width - 70) * i / 6;
+                ctx.fillText(label, x, height - 5);
+            });
+            
+            // 绘制折线
+            ctx.strokeStyle = '#667eea';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            
+            values.forEach((value, i) => {
+                const x = 50 + (width - 70) * i / 6;
+                const y = height - 30 - ((height - 50) * value / maxValue);
+                
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            });
+            ctx.stroke();
+            
+            // 绘制数据点和填充区域
+            ctx.fillStyle = 'rgba(102, 126, 234, 0.2)';
+            ctx.beginPath();
+            values.forEach((value, i) => {
+                const x = 50 + (width - 70) * i / 6;
+                const y = height - 30 - ((height - 50) * value / maxValue);
+                
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            });
+            ctx.lineTo(50 + (width - 70) * (values.length - 1) / 6, height - 30);
+            ctx.lineTo(50, height - 30);
+            ctx.closePath();
+            ctx.fill();
+            
+            // 绘制数据点
+            values.forEach((value, i) => {
+                const x = 50 + (width - 70) * i / 6;
+                const y = height - 30 - ((height - 50) * value / maxValue);
+                
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, Math.PI * 2);
+                ctx.fillStyle = '#667eea';
+                ctx.fill();
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            });
         }
         
         // 热点新闻功能
@@ -1999,6 +2487,9 @@
             
             // 恢复阅读进度
             restoreReadingProgress();
+            
+            // 初始化访客统计
+            initVisitorStats();
             
             // 加载热点新闻
             loadHotNews();

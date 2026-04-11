@@ -488,7 +488,7 @@ body.dark-mode .quick-nav-link:hover {
 }
 
 /* 深色模式切换按钮 */
-.theme-toggle-btn, .music-toggle-btn {
+.theme-toggle-btn, .language-toggle-btn {
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
@@ -506,14 +506,14 @@ body.dark-mode .quick-nav-link:hover {
     padding: 0;
 }
 
-/* 深色模式切换按钮和音乐按钮悬停效果 */
-.theme-toggle-btn:hover, .music-toggle-btn:hover {
+/* 深色模式切换按钮和语言切换按钮悬停效果 */
+.theme-toggle-btn:hover, .language-toggle-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* 深色模式下的切换按钮和音乐按钮 */
-.dark-mode .theme-toggle-btn, .dark-mode .music-toggle-btn {
+/* 深色模式下的切换按钮 */
+.dark-mode .theme-toggle-btn, .dark-mode .language-toggle-btn {
     background: rgba(30, 30, 40, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
@@ -1973,6 +1973,60 @@ body.tablet-effects .blog-posts {
 .match-time {
     color: #888;
     font-size: 0.85rem;
+}
+
+/* 访客统计样式 */
+.visitor-stats {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.visitor-stats .stats-overview {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+}
+
+.visitor-stats .stat-item {
+    text-align: center;
+    flex: 1;
+}
+
+.visitor-stats .stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #667eea;
+    margin-bottom: 5px;
+}
+
+.visitor-stats .stat-label {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.visitor-stats .stats-chart {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    padding: 15px;
+}
+
+.visitor-stats .chart-title {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+#visit-chart {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
 
 /* 加载状态 */
